@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
@@ -33,6 +34,7 @@ fun SimpleCard(
     modifierCard: Modifier = Modifier,
     modifierColumn: Modifier = Modifier,
     cardBackgroundColor: Color = Color.White,
+    shape: Dp = Dimens.corner12,
     cardElevation: Dp = Dimens.elevation2,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
@@ -44,6 +46,7 @@ fun SimpleCard(
         modifier = modifierCard.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = cardBackgroundColor),
         elevation = CardDefaults.cardElevation(defaultElevation = cardElevation),
+        shape = RoundedCornerShape(shape)
     ) {
         Column(
             modifier = modifierColumn

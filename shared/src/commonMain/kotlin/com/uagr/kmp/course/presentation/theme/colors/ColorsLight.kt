@@ -6,7 +6,7 @@ package com.uagr.kmp.course.presentation.theme.colors
 
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFFB52217)
+val primaryLight = Color(0xFF0F459E)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFE6F4F4)
 val onPrimaryContainerLight = Color(0xFF637070)
@@ -22,7 +22,7 @@ val errorLight = Color(0xFFBA1A1A)
 val onErrorLight = Color(0xFFFFFFFF)
 val errorContainerLight = Color(0xFFFFDAD6)
 val onErrorContainerLight = Color(0xFF93000A)
-val backgroundLight = Color(0xFFF4F4F4)
+val backgroundLight = Color(0xFFF5F7FA)
 val onBackgroundLight = Color(0xFF1B1C1C)
 val surfaceLight = Color(0xFFFBF9F8)
 val onSurfaceLight = Color(0xFF1B1C1C)
@@ -61,6 +61,11 @@ val backgroundYellowLight = Color(0xFFFFB700)
 val backgroundBlueLight = Color(0xFF0066FF)
 val dividerLight = Color(0xFFEBEFF9)
 val backgroundProgressIndicatorLight = Color(0x80898989)
+val gray7ALight = Color(0xFF7A8291)
+val lightBlueC7Light = Color(0xFFC7DBFF)
+val blue1ALight = Color(0xFF1A70ED)
+val borderContainerLight = Color(0xFFDBE0E8)
+val black1FLight = Color(0xFF1F242E)
 
 // --- Light color group ---
 val lightModeAppColors = AppColors(
@@ -108,17 +113,24 @@ val lightModeAppColors = AppColors(
         infoContainer = statusInfoContainerLight,
         success = statusSuccessLight,
         successContainer = statusSuccessContainerLight,
+        borderContainer = borderContainerLight
     ),
     text = ColorTexts(
         black = textBlackLight,
+        black1F = black1FLight,
         white = textWhiteLight,
         link = textLinkLight,
+        blue0F = primaryLight,
+        gray7A = gray7ALight,
+        blueC7 = lightBlueC7Light,
+        blue1A = blue1ALight
     ),
     backgrounds = ColorBackgrounds(
         black = backgroundBlackLight,
         white = backgroundWhiteLight,
         yellow = backgroundYellowLight,
         blue = backgroundBlueLight,
+        blue1A = blue1ALight
     ),
     divider = dividerLight,
     backgroundProgressIndicator = backgroundProgressIndicatorLight,
