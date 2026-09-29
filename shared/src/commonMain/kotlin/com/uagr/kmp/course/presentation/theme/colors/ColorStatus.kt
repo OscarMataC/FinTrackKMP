@@ -17,4 +17,5 @@ data class ColorStatus(
     val infoContainer: Color = Color.Unspecified,
     val success: Color = Color.Unspecified,
     val successContainer: Color = Color.Unspecified,
+    val borderContainer: Color = Color.Unspecified,
 )

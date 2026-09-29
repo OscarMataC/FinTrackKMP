@@ -13,10 +13,14 @@ object Dimens {
 
     // ------ Text size ------
     val textSizeExtraSmall: TextUnit = 12.sp
+    val textSizeExtraSmall13: TextUnit = 13.sp
     val textSizeSmall: TextUnit = 14.sp
+    val textSizeSmall15: TextUnit = 15.sp
     val textSizeNormal: TextUnit = 16.sp
     val textSizeMedium: TextUnit = 20.sp
     val textSizeBig: TextUnit = 24.sp
+    val textSizeBig30: TextUnit = 30.sp
+    val textSizeBig34: TextUnit = 34.sp
     val textSizeBigExtra: TextUnit = 40.sp
 
     // ------ Height ------
@@ -26,13 +30,20 @@ object Dimens {
     val height8: Dp = 8.dp
     val height12: Dp = 12.dp
     val height16: Dp = 16.dp
+    val height18: Dp = 18.dp
     val height20: Dp = 24.dp
     val height24: Dp = 24.dp
+    val height26: Dp = 26.dp
     val height28: Dp = 28.dp
+    val height30: Dp = 30.dp
     val height32: Dp = 32.dp
     val height40: Dp = 40.dp
+    val height42: Dp = 42.dp
     val height48: Dp = 48.dp
+    val height50: Dp = 50.dp
+    val height52: Dp = 52.dp
     val height64: Dp = 64.dp
+    val height70: Dp = 70.dp
     val height80: Dp = 80.dp
     val height96: Dp = 96.dp
     val height128: Dp = 128.dp
@@ -60,6 +71,7 @@ object Dimens {
     val padding8: Dp = 8.dp
     val padding12: Dp = 12.dp
     val padding16: Dp = 16.dp
+    val padding18: Dp = 18.dp
     val padding24: Dp = 24.dp
     val padding28: Dp = 28.dp
     val padding31: Dp = 31.dp
@@ -76,6 +88,7 @@ object Dimens {
     val corner4: Dp = 4.dp
     val corner8: Dp = 8.dp
     val corner12: Dp = 12.dp
+    val corner14: Dp = 14.dp
     val corner16: Dp = 16.dp
     val corner20: Dp = 24.dp
     val corner24: Dp = 24.dp

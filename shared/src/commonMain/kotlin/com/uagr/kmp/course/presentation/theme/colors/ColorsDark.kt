@@ -6,7 +6,7 @@ package com.uagr.kmp.course.presentation.theme.colors
 
 import androidx.compose.ui.graphics.Color
 
-val primaryDark = Color(0xFFB52217)
+val primaryDark = Color(0xFF0F459E)
 val onPrimaryDark = Color(0xFF263333)
 val primaryContainerDark = Color(0xFFD7E5E5)
 val onPrimaryContainerDark = Color(0xFF5A6767)
@@ -22,7 +22,7 @@ val errorDark = Color(0xFFFFB4AB)
 val onErrorDark = Color(0xFF690005)
 val errorContainerDark = Color(0xFF93000A)
 val onErrorContainerDark = Color(0xFFFFDAD6)
-val backgroundDark = Color(0xFF3C3C3C)
+val backgroundDark = Color(0xFFF5F7FA)
 val onBackgroundDark = Color(0xFFE4E2E1)
 val surfaceDark = Color(0xFF3C3C3C)
 val onSurfaceDark = Color(0xFFE4E2E1)
@@ -61,6 +61,13 @@ val backgroundYellowDark = Color(0xFFFFB700)
 val backgroundBlueDark = Color(0xFF0048FF)
 val dividerDark = Color(0xFFEBEFF9)
 val backgroundProgressIndicatorDark = Color(0x80898989)
+
+val grayF7Dark = Color(0xFF7A8291)
+val lightBlueC7Dark = Color(0xFFC7DBFF)
+val blue1ADark = Color(0xFF1A70ED)
+val borderContainerDark = Color(0xFFDBE0E8)
+val black1FDark = Color(0xFF1F242E)
+
 
 // --- Dark color group ---
 val darkModeAppColors = AppColors(
@@ -108,17 +115,24 @@ val darkModeAppColors = AppColors(
         infoContainer = statusInfoContainerDark,
         success = statusSuccessDark,
         successContainer = statusSuccessContainerDark,
+        borderContainer = borderContainerDark
     ),
     text = ColorTexts(
         black = textBlackDark,
+        black1F = black1FDark,
         white = textWhiteDark,
         link = textLinkDark,
+        blue0F = primaryDark,
+        gray7A = grayF7Dark,
+        blueC7 = lightBlueC7Dark,
+        blue1A = blue1ADark
     ),
     backgrounds = ColorBackgrounds(
         black = backgroundBlackDark,
         white = backgroundWhiteDark,
         yellow = backgroundYellowDark,
         blue = backgroundBlueDark,
+        blue1A = blue1ADark
     ),
     divider = dividerDark,
     backgroundProgressIndicator = backgroundProgressIndicatorDark,

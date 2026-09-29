@@ -5,7 +5,7 @@
 
     <!-- Error -->
     <string name="error">Error</string>
-    <string name="please_try_again_later">Please try again later</string>
+    <string name="please_try_again_later">Por favor intenta más tarde</string>
 
     <!-- Welcome -->
     <string name="hello">¡Hello!</string>
@@ -13,17 +13,23 @@
     <string name="go_to_login">Go to login</string>
 
     <!-- Login -->
-    <string name="login">Login</string>
+    <string name="fin_track_title">FinTrack</string>
+    <string name="fin_track_description">Tus finanzas claras incluso sin conexión.</string>
+    <string name="empty_balances">$ --</string>
+    <string name="available_balance">Balance disponible</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="create_account">Crear una cuenta</string>
     <string name="welcome_to_login_enter_your_credentials">Welcome to login enter your credentials</string>
     <string name="go_back">Go back</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
     <string name="email_example">user@gmail</string>
     <string name="password_example">Password123</string>
-    <string name="email_empty">Email empty</string>
-    <string name="password_empty">Password empty</string>
+    <string name="email_empty">Correo vacío</string>
+    <string name="password_empty">Contraseña vacía</string>
+    <string name="email_and_password_empty">Correo y contraseña vacíos</string>
     <string name="go_to_packages">Go to packages</string>
-    <string name="accept">Accept</string>
+    <string name="accept">Aceptar</string>
     <string name="cancel">Cancel</string>
 
     <!-- Welcome -->
