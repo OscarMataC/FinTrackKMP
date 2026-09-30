@@ -8,7 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uagr.kmp.course.domain.model.base.ErrorDialogModel
 import com.uagr.kmp.course.domain.usecase.login.LoginFieldValidationResult
+import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
+import com.uagr.kmp.course.utils.constant.NetworkUrl
+import com.uagr.kmp.course.utils.network.NetworkResult
+import com.uagr.kmp.course.utils.operators.StatusLoading
 import course.shared.generated.resources.Res
 import course.shared.generated.resources.accept
 import course.shared.generated.resources.email_and_password_empty
@@ -19,12 +23,15 @@ import course.shared.generated.resources.please_try_again_later
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 
 class LoginViewModel(
-    private val validateLoginFormUseCase: ValidateLoginFormUseCase
+    private val validateLoginFormUseCase: ValidateLoginFormUseCase,
+    private val loginUseCase: LoginUseCase
 ): ViewModel() {
 
     private var _loginUiState = MutableStateFlow(LoginUiState())
@@ -53,34 +60,92 @@ class LoginViewModel(
         _loginUiEvent.emit(LoginUiEvent.Idle)
     }
 
-    fun validateLoginForm(
-        email: String,
-        password: String,
-    ) = viewModelScope.launch {
+    fun validateLoginForm(email: String, password: String) = viewModelScope.launch {
         when (validateLoginFormUseCase(
             email = email,
-            password = password,
+            password = password
         )) {
             is LoginFieldValidationResult.EmptyFields -> {
-                _loginUiState.update { state -> state.copy(errorDialog = setErrorDialog(message = getString(Res.string.email_and_password_empty))) }
+                _loginUiState.update { state ->
+                    state.copy(
+                        errorDialog = setErrorDialog(
+                            message = getString(Res.string.email_and_password_empty)
+                        )
+                    )
+                }
             }
             is LoginFieldValidationResult.EmptyEmail -> {
-                _loginUiState.update { state -> state.copy(errorDialog = setErrorDialog(message = getString(Res.string.email_empty))) }
+                _loginUiState.update { state ->
+                    state.copy(
+                        errorDialog = setErrorDialog(
+                            message = getString(Res.string.email_empty)
+                        )
+                    )
+                }
             }
             is LoginFieldValidationResult.EmptyPassword -> {
-                _loginUiState.update { state -> state.copy(errorDialog = setErrorDialog(message = getString(Res.string.password_empty))) }
+                _loginUiState.update { state ->
+                    state.copy(
+                        errorDialog = setErrorDialog(
+                            message = getString(Res.string.password_empty)
+                        )
+                    )
+                }
             }
             is LoginFieldValidationResult.FilledFields -> {
-
+                login(email = email, password = password)
             }
         }
+    }
+
+    private fun login(email: String, password: String) = viewModelScope.launch {
+        loginUseCase.login(url = NetworkUrl.LOGIN_ENDPOINT, email = email, password = password)
+            .onStart {
+            _loginUiState.update { state -> state.copy(isLoading = StatusLoading.SHOW_LOADING) }
+            }.catch {
+                _loginUiState.update { state ->
+                    state.copy(
+                    isLoading = StatusLoading.DISMISS_LOADING,
+                    errorDialog = setErrorDialog()
+                    )
+                }
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Success -> {
+                        val accessToken = result.response.accessToken
+                        if(accessToken.isNotEmpty()) {
+                            _loginUiState.update { state ->
+                                state.copy(
+                                    isLoading = StatusLoading.DISMISS_LOADING,
+                                    errorDialog = setErrorDialog(accessToken)
+                                )
+                            }
+                        } else {
+                            _loginUiState.update { state ->
+                                state.copy(
+                                    isLoading = StatusLoading.DISMISS_LOADING,
+                                    errorDialog = setErrorDialog()
+                                )
+                            }
+                        }
+                    }
+                    is NetworkResult.Error -> {
+                        _loginUiState.update { state ->
+                            state.copy(
+                                isLoading = StatusLoading.DISMISS_LOADING,
+                                errorDialog = setErrorDialog()
+                            )
+                        }
+                    }
+                }
+            }
     }
 
     private suspend fun setErrorDialog(message: String? = null): ErrorDialogModel =
         ErrorDialogModel(
             title = getString(resource = Res.string.error),
             message = message ?: getString(resource = Res.string.please_try_again_later),
-            primaryButtonText = getString(resource = Res.string.accept),
+            primaryButtonText = getString(resource = Res.string.accept)
         )
 
     fun dismissErrorDialog() = viewModelScope.launch {

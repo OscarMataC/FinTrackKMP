@@ -11,6 +11,11 @@ import com.uagr.kmp.course.data.local.database.getDatabaseBuilder
 import com.uagr.kmp.course.data.local.datastore.AppDataStore
 import com.uagr.kmp.course.data.local.datastore.createDataStore
 import com.uagr.kmp.course.data.network.client.createHttpClient
+import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSource
+import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSourceImpl
+import com.uagr.kmp.course.domain.repository.login.LoginRepository
+import com.uagr.kmp.course.domain.repository.login.LoginRepositoryImpl
+import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
 import com.uagr.kmp.course.presentation.ui.login.viewmodel.LoginViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -48,7 +53,9 @@ val networkModule = module {
 }
 
 val dataSourceRemoteModule = module {
-
+    single<LoginNetworkDataSource> {
+        LoginNetworkDataSourceImpl(get())
+    }
 }
 
 val dataSourceLocalModule = module {
@@ -56,11 +63,17 @@ val dataSourceLocalModule = module {
 }
 
 val repositoryModule = module {
-
+    single <LoginRepository> {
+        LoginRepositoryImpl(
+            loginNetworkDataSource = get(),
+            ioDispatcher = get()
+        )
+    }
 }
 
 val useCaseModule = module {
     single { ValidateLoginFormUseCase() }
+    single { LoginUseCase(get()) }
 }
 
 val viewmodelModule = module {
