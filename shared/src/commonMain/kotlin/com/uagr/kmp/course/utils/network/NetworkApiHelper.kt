@@ -22,11 +22,11 @@ suspend inline fun <reified Response : BaseResponse, Domain> safeApiCall(
         val status = response.status.value
         if (response.status.isSuccess()) {
             val body = response.body<Response>()
-            if (body.success == true) {
+            if (body.error == null) {
                 NetworkResult.Success(response = transform(body))
             } else {
                 NetworkResult.Error(
-                    message = body.message?.takeIf { message -> message.isNotBlank() } ?: "Error unknown",
+                    message = body.error.message?.takeIf { message -> message.isNotBlank() } ?: "Error unknown",
                     errorType = NetworkErrorType.UNKNOWN,
                 )
             }

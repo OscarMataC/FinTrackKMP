@@ -8,10 +8,20 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.uagr.kmp.course.data.local.database.AppDatabase
 import com.uagr.kmp.course.data.local.database.getDatabaseBuilder
+import com.uagr.kmp.course.data.local.datasource.bone.user.UserLocalDataSource
+import com.uagr.kmp.course.data.local.datasource.bone.user.UserLocalDataSourceImpl
 import com.uagr.kmp.course.data.local.datastore.AppDataStore
 import com.uagr.kmp.course.data.local.datastore.createDataStore
 import com.uagr.kmp.course.data.network.client.createHttpClient
+import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSource
+import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSourceImpl
+import com.uagr.kmp.course.domain.repository.login.LoginRepository
+import com.uagr.kmp.course.domain.repository.login.LoginRepositoryImpl
+import com.uagr.kmp.course.domain.repository.user.UserRepository
+import com.uagr.kmp.course.domain.repository.user.UserRepositoryImpl
+import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
+import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
 import com.uagr.kmp.course.presentation.ui.login.viewmodel.LoginViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -48,19 +58,39 @@ val networkModule = module {
 }
 
 val dataSourceRemoteModule = module {
-
+    single<LoginNetworkDataSource> {
+        LoginNetworkDataSourceImpl(get())
+    }
 }
 
 val dataSourceLocalModule = module {
-
+    single <UserLocalDataSource> {
+        UserLocalDataSourceImpl(
+            appDataStore = get()
+        )
+    }
 }
 
 val repositoryModule = module {
+    single <LoginRepository> {
+        LoginRepositoryImpl(
+            loginNetworkDataSource = get(),
+            ioDispatcher = get()
+        )
+    }
 
+    single <UserRepository> {
+        UserRepositoryImpl(
+            userLocalDataSource = get(),
+            ioDispatcher = get()
+        )
+    }
 }
 
 val useCaseModule = module {
     single { ValidateLoginFormUseCase() }
+    single { LoginUseCase(get()) }
+    single { SaveUserTokenUseCase(get()) }
 }
 
 val viewmodelModule = module {
