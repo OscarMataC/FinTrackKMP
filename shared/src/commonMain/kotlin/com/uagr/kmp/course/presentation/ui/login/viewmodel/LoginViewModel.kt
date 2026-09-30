@@ -10,6 +10,7 @@ import com.uagr.kmp.course.domain.model.base.ErrorDialogModel
 import com.uagr.kmp.course.domain.usecase.login.LoginFieldValidationResult
 import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
+import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
 import com.uagr.kmp.course.utils.constant.NetworkUrl
 import com.uagr.kmp.course.utils.network.NetworkResult
 import com.uagr.kmp.course.utils.operators.StatusLoading
@@ -31,7 +32,8 @@ import org.jetbrains.compose.resources.getString
 
 class LoginViewModel(
     private val validateLoginFormUseCase: ValidateLoginFormUseCase,
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val saveUserTokenUseCase: SaveUserTokenUseCase
 ): ViewModel() {
 
     private var _loginUiState = MutableStateFlow(LoginUiState())
@@ -114,12 +116,7 @@ class LoginViewModel(
                     is NetworkResult.Success -> {
                         val accessToken = result.response.accessToken
                         if(accessToken.isNotEmpty()) {
-                            _loginUiState.update { state ->
-                                state.copy(
-                                    isLoading = StatusLoading.DISMISS_LOADING,
-                                    errorDialog = setErrorDialog(accessToken)
-                                )
-                            }
+                            saveUserToken(accessToken)
                         } else {
                             _loginUiState.update { state ->
                                 state.copy(
@@ -138,6 +135,23 @@ class LoginViewModel(
                         }
                     }
                 }
+            }
+    }
+
+    private fun saveUserToken(token: String) = viewModelScope.launch {
+        saveUserTokenUseCase(token = token)
+            .catch {
+                _loginUiState.update { state ->
+                    state.copy(
+                        isLoading = StatusLoading.DISMISS_LOADING,
+                        errorDialog = setErrorDialog(),
+                    )
+                }
+            }.collect {
+                _loginUiState.update { state ->
+                    state.copy(isLoading = StatusLoading.DISMISS_LOADING)
+                }
+                _loginUiEvent.emit(LoginUiEvent.SuccessLogin)
             }
     }
 
