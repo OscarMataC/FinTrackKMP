@@ -21,7 +21,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel()
+    viewModel: LoginViewModel = koinViewModel(),
+    navigateToRegister: () -> Unit = {}
 ) {
 
     val loginUiState by viewModel.loginUiState.collectAsStateWithLifecycle()
@@ -45,7 +46,8 @@ fun LoginScreen(
             onPasswordChange = { viewModel.updatePassword(it) },
             passwordVisible = loginUiState.passwordVisible,
             onPasswordVisibleChange = { viewModel.updatePasswordVisible(it) },
-            onLoginClick = { viewModel.validateLoginForm(loginUiState.email, loginUiState.password) }
+            onLoginClick = { viewModel.validateLoginForm(loginUiState.email, loginUiState.password) },
+            onRegisterClick = { navigateToRegister() }
         )
         Loader(isLoading = loginUiState.isLoading)
         DialogCustom(
@@ -56,7 +58,7 @@ fun LoginScreen(
             primaryButtonTextColor = AppTheme.colors.text.white,
             onPrimaryButtonClick = {
                 viewModel.dismissErrorDialog()
-            },
+            }
         )
     }
 }

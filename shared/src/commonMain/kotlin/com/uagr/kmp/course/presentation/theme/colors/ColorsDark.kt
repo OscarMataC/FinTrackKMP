@@ -63,6 +63,7 @@ val dividerDark = Color(0xFFEBEFF9)
 val backgroundProgressIndicatorDark = Color(0x80898989)
 
 val grayF7Dark = Color(0xFF7A8291)
+val grayA1Dark = Color(0xFFA1A1A1)
 val lightBlueC7Dark = Color(0xFFC7DBFF)
 val blue1ADark = Color(0xFF1A70ED)
 val borderContainerDark = Color(0xFFDBE0E8)
@@ -124,6 +125,7 @@ val darkModeAppColors = AppColors(
         link = textLinkDark,
         blue0F = primaryDark,
         gray7A = grayF7Dark,
+        grayA1 = grayA1Dark,
         blueC7 = lightBlueC7Dark,
         blue1A = blue1ADark
     ),

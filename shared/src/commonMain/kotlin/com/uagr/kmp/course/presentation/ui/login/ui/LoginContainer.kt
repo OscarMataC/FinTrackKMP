@@ -5,6 +5,7 @@
 package com.uagr.kmp.course.presentation.ui.login.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -57,7 +58,8 @@ fun LoginContainer(
     onPasswordChange: (String) -> Unit = {},
     passwordVisible: Boolean = false,
     onPasswordVisibleChange: (Boolean) -> Unit = {},
-    onLoginClick: () -> Unit = {}
+    onLoginClick: () -> Unit = {},
+    onRegisterClick: () -> Unit = {}
 ) {
     val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
@@ -118,9 +120,9 @@ fun LoginContainer(
         TextFieldCustom(
             value = email,
             onValueChange = onEmailChange,
-            labelColor = AppTheme.colors.text.black,
+            labelColor = AppTheme.colors.text.gray7A,
             label = stringResource(Res.string.email),
-            placeholderColor = AppTheme.colors.text.black,
+            placeholderColor = AppTheme.colors.text.gray7A,
             placeholder = stringResource(Res.string.email_example),
             shape = Dimens.corner14,
             keyboardType = KeyboardType.Email,
@@ -128,13 +130,13 @@ fun LoginContainer(
         )
         Spacer(Modifier.height(Dimens.height12))
         TextFieldPassword(
-            email = password,
-            onEmailChange = onPasswordChange,
+            password = password,
+            onPasswordChange = onPasswordChange,
             passwordVisible = passwordVisible,
             onPasswordVisibleChange = onPasswordVisibleChange,
-            labelColor = AppTheme.colors.text.black,
+            labelColor = AppTheme.colors.text.gray7A,
             label = stringResource(Res.string.password),
-            placeholderColor = AppTheme.colors.text.black,
+            placeholderColor = AppTheme.colors.text.gray7A,
             placeholder = stringResource(Res.string.password_example),
             shape = Dimens.corner14,
             trailingIconActive = Res.drawable.ic_visibility_on,
@@ -159,7 +161,7 @@ fun LoginContainer(
         )
         Spacer(modifier = Modifier.height(height = Dimens.height30))
         TextSmallExtra(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().clickable { onRegisterClick() },
             color = AppTheme.colors.text.blue1A,
             text = stringResource(Res.string.create_account),
             fontSize = Dimens.textSizeExtraSmall13

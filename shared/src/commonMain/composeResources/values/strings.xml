@@ -24,13 +24,27 @@
     <string name="email">Correo</string>
     <string name="password">Contraseña</string>
     <string name="email_example">user@gmail</string>
-    <string name="password_example">Password123</string>
+    <string name="password_example">Password123!</string>
     <string name="email_empty">Correo vacío</string>
     <string name="password_empty">Contraseña vacía</string>
     <string name="email_and_password_empty">Correo y contraseña vacíos</string>
     <string name="go_to_packages">Go to packages</string>
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancel</string>
+    <string name="required_field">Campo requerido</string>
+
+    <!-- Register -->
+    <string name="register_description">Registrate de forma gratuita y segura.</string>
+    <string name="name">Nombre</string>
+    <string name="name_example">Carlos</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="confirm_password_example">Password123!</string>
+    <string name="missing_fields">Campos faltantes</string>
+    <string name="passwords_dont_match">Las contraseñas no coinciden</string>
+    <string name="successful_register_title">Registro exitoso</string>
+    <string name="successful_register_description">El registro se ha realizado de manera correcta.</string>
+
+    <string name="register_user">Registrar usuario</string>
 
     <!-- Welcome -->
     <string name="welcome">Welcome</string>

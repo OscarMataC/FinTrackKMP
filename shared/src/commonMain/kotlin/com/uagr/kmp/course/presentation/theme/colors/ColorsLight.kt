@@ -62,6 +62,7 @@ val backgroundBlueLight = Color(0xFF0066FF)
 val dividerLight = Color(0xFFEBEFF9)
 val backgroundProgressIndicatorLight = Color(0x80898989)
 val gray7ALight = Color(0xFF7A8291)
+val grayA1Light = Color(0xFFA1A1A1)
 val lightBlueC7Light = Color(0xFFC7DBFF)
 val blue1ALight = Color(0xFF1A70ED)
 val borderContainerLight = Color(0xFFDBE0E8)
@@ -122,6 +123,7 @@ val lightModeAppColors = AppColors(
         link = textLinkLight,
         blue0F = primaryLight,
         gray7A = gray7ALight,
+        grayA1 = grayA1Light,
         blueC7 = lightBlueC7Light,
         blue1A = blue1ALight
     ),

@@ -17,6 +17,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,11 +35,15 @@ import androidx.compose.ui.unit.TextUnit
 import com.uagr.kmp.course.presentation.component.container.SafeScreenContainerTest
 import com.uagr.kmp.course.presentation.component.text.TextMedium
 import com.uagr.kmp.course.presentation.component.text.TextMediumBold
+import com.uagr.kmp.course.presentation.component.text.TextSmall
+import com.uagr.kmp.course.presentation.component.text.TextSmallExtra
 import com.uagr.kmp.course.presentation.theme.AppTheme
 import com.uagr.kmp.course.presentation.theme.Dimens
 import course.shared.generated.resources.Res
 import course.shared.generated.resources.example
 import course.shared.generated.resources.ic_example
+import course.shared.generated.resources.name
+import course.shared.generated.resources.required_field
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -79,7 +84,7 @@ fun TextFieldCustom(
         ),
         keyboardActions = keyboardActions,
         label = {
-            TextMediumBold(
+            TextMedium(
                 color = labelColor,
                 text = label,
                 textAlign = labelTextAlign,
@@ -108,8 +113,8 @@ fun TextFieldCustom(
 @Composable
 fun TextFieldPassword(
     modifier: Modifier = Modifier,
-    email: String,
-    onEmailChange: (String) -> Unit,
+    password: String,
+    onPasswordChange: (String) -> Unit,
     textColor: Color = AppTheme.colors.text.black1F,
     passwordVisible: Boolean,
     onPasswordVisibleChange: (Boolean) -> Unit,
@@ -130,9 +135,9 @@ fun TextFieldPassword(
 ) {
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
-        value = email,
+        value = password,
         shape = RoundedCornerShape(shape),
-        onValueChange = onEmailChange,
+        onValueChange = onPasswordChange,
         textStyle = TextStyle(
             fontSize = fontSize,
             fontWeight = FontWeight.Normal,
@@ -145,7 +150,7 @@ fun TextFieldPassword(
         ),
         keyboardActions = keyboardActions,
         label = {
-            TextMediumBold(
+            TextMedium(
                 color = labelColor,
                 text = label,
                 textAlign = labelTextAlign,
@@ -205,8 +210,8 @@ private fun TextFieldPreview() {
                     placeholder = stringResource(Res.string.example),
                 )
                 TextFieldPassword(
-                    email = "",
-                    onEmailChange = {},
+                    password = "",
+                    onPasswordChange = {},
                     passwordVisible = false,
                     onPasswordVisibleChange = {},
                     labelColor = Color.Black,

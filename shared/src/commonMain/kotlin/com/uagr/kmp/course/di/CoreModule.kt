@@ -15,14 +15,21 @@ import com.uagr.kmp.course.data.local.datastore.createDataStore
 import com.uagr.kmp.course.data.network.client.createHttpClient
 import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSource
 import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSourceImpl
+import com.uagr.kmp.course.data.network.datasource.register.RegisterNetworkDataSource
+import com.uagr.kmp.course.data.network.datasource.register.RegisterNetworkDataSourceImpl
 import com.uagr.kmp.course.domain.repository.login.LoginRepository
 import com.uagr.kmp.course.domain.repository.login.LoginRepositoryImpl
+import com.uagr.kmp.course.domain.repository.register.RegisterRepository
+import com.uagr.kmp.course.domain.repository.register.RegisterRepositoryImpl
 import com.uagr.kmp.course.domain.repository.user.UserRepository
 import com.uagr.kmp.course.domain.repository.user.UserRepositoryImpl
 import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
+import com.uagr.kmp.course.domain.usecase.register.RegisterUseCase
+import com.uagr.kmp.course.domain.usecase.register.ValidateRegisterFormUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
 import com.uagr.kmp.course.presentation.ui.login.viewmodel.LoginViewModel
+import com.uagr.kmp.course.presentation.ui.register.viewmodel.RegisterViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -61,6 +68,10 @@ val dataSourceRemoteModule = module {
     single<LoginNetworkDataSource> {
         LoginNetworkDataSourceImpl(get())
     }
+
+    single<RegisterNetworkDataSource> {
+        RegisterNetworkDataSourceImpl(get())
+    }
 }
 
 val dataSourceLocalModule = module {
@@ -85,16 +96,26 @@ val repositoryModule = module {
             ioDispatcher = get()
         )
     }
+
+    single <RegisterRepository> {
+        RegisterRepositoryImpl(
+            registerNetworkDataSource = get(),
+            ioDispatcher = get()
+        )
+    }
 }
 
 val useCaseModule = module {
     single { ValidateLoginFormUseCase() }
     single { LoginUseCase(get()) }
     single { SaveUserTokenUseCase(get()) }
+    single { ValidateRegisterFormUseCase() }
+    single { RegisterUseCase(get()) }
 }
 
 val viewmodelModule = module {
     viewModelOf(::LoginViewModel)
+    viewModelOf(::RegisterViewModel)
 }
 
 fun initKoin(config: KoinAppDeclaration? = null) {
