@@ -31,12 +31,14 @@ object Dimens {
     val height12: Dp = 12.dp
     val height16: Dp = 16.dp
     val height18: Dp = 18.dp
+    val height19: Dp = 19.dp
     val height20: Dp = 24.dp
     val height24: Dp = 24.dp
     val height26: Dp = 26.dp
     val height28: Dp = 28.dp
     val height30: Dp = 30.dp
     val height32: Dp = 32.dp
+    val height33: Dp = 33.dp
     val height40: Dp = 40.dp
     val height42: Dp = 42.dp
     val height48: Dp = 48.dp
@@ -76,6 +78,7 @@ object Dimens {
     val padding28: Dp = 28.dp
     val padding31: Dp = 31.dp
     val padding32: Dp = 32.dp
+    val padding41: Dp = 41.dp
     val padding48: Dp = 48.dp
     val padding64: Dp = 64.dp
     val padding80: Dp = 80.dp

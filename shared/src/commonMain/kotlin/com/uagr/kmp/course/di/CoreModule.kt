@@ -21,8 +21,10 @@ import com.uagr.kmp.course.domain.repository.user.UserRepository
 import com.uagr.kmp.course.domain.repository.user.UserRepositoryImpl
 import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
+import com.uagr.kmp.course.domain.usecase.register.ValidateRegisterFormUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
 import com.uagr.kmp.course.presentation.ui.login.viewmodel.LoginViewModel
+import com.uagr.kmp.course.presentation.ui.register.viewmodel.RegisterViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -91,10 +93,12 @@ val useCaseModule = module {
     single { ValidateLoginFormUseCase() }
     single { LoginUseCase(get()) }
     single { SaveUserTokenUseCase(get()) }
+    single { ValidateRegisterFormUseCase() }
 }
 
 val viewmodelModule = module {
     viewModelOf(::LoginViewModel)
+    viewModelOf(::RegisterViewModel)
 }
 
 fun initKoin(config: KoinAppDeclaration? = null) {
