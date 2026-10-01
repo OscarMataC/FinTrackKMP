@@ -40,6 +40,9 @@
     <string name="confirm_password">Confirmar contraseña</string>
     <string name="confirm_password_example">Password123!</string>
     <string name="missing_fields">Campos faltantes</string>
+    <string name="passwords_dont_match">Las contraseñas no coinciden</string>
+    <string name="successful_register_title">Registro exitoso</string>
+    <string name="successful_register_description">El registro se ha realizado de manera correcta.</string>
 
     <string name="register_user">Registrar usuario</string>
 

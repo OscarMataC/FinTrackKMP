@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.uagr.kmp.course.domain.model.base.ErrorDialogModel
+import com.uagr.kmp.course.domain.model.base.DialogModel
 import com.uagr.kmp.course.presentation.component.buton.ButtonCustom
 import com.uagr.kmp.course.presentation.component.text.TextNormalBold
 import com.uagr.kmp.course.presentation.component.text.TextSmall
@@ -25,7 +25,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun DialogCustom(
     modifier: Modifier = Modifier,
-    errorDialog: ErrorDialogModel?,
+    errorDialog: DialogModel?,
     titleTextColor: Color,
     messageTextColor: Color,
     primaryButtonBackgroundColor: Color,
@@ -87,7 +87,7 @@ private fun ErrorDialogPreview() {
         verticalArrangement = Arrangement.spacedBy(Dimens.padding16),
     ) {
         DialogCustom(
-            errorDialog = ErrorDialogModel(
+            errorDialog = DialogModel(
                 title = stringResource(Res.string.example),
                 message = stringResource(Res.string.example),
                 primaryButtonText = stringResource(Res.string.example),

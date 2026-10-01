@@ -28,7 +28,6 @@ fun RegisterScreen(
             is RegisterUiEvent.Idle -> {}
             is RegisterUiEvent.SuccessfulRegister -> {
                 viewModel.resetUiEvent()
-                //onRegisterSuccess()
             }
         }
     }
@@ -66,6 +65,17 @@ fun RegisterScreen(
             primaryButtonTextColor = AppTheme.colors.text.white,
             onPrimaryButtonClick = {
                 viewModel.dismissErrorDialog()
+            }
+        )
+        DialogCustom(
+            errorDialog = registerUiState.dialog,
+            titleTextColor = AppTheme.colors.text.black,
+            messageTextColor = AppTheme.colors.text.black,
+            primaryButtonBackgroundColor = AppTheme.colors.primary,
+            primaryButtonTextColor = AppTheme.colors.text.white,
+            onPrimaryButtonClick = {
+                viewModel.dismissErrorDialog()
+                onBackClick()
             }
         )
     }

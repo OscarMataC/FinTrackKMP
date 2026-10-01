@@ -1,8 +1,10 @@
 package com.uagr.kmp.course.domain.model.login
 
+import com.uagr.kmp.course.domain.model.base.TokensModel
+
 data class LoginModel(
-    val accessToken: String,
-    val refreshToken: String,
-    val tokenType: String,
-    val expiresIn: Int
-)
+    override val accessToken: String,
+    override val refreshToken: String,
+    override val tokenType: String,
+    override val expiresIn: Int
+) : TokensModel(accessToken, refreshToken, tokenType, expiresIn)

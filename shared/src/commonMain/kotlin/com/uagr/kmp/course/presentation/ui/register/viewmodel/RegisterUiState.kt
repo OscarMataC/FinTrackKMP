@@ -1,6 +1,6 @@
 package com.uagr.kmp.course.presentation.ui.register.viewmodel
 
-import com.uagr.kmp.course.domain.model.base.ErrorDialogModel
+import com.uagr.kmp.course.domain.model.base.DialogModel
 import com.uagr.kmp.course.utils.operators.StatusLoading
 
 data class RegisterUiState(
@@ -11,5 +11,6 @@ data class RegisterUiState(
     val confirmPassword: String = "",
     val isVisiblePassword: Boolean = false,
     val isVisibleConfirmPassword: Boolean = false,
-    val errorDialog: ErrorDialogModel? = null
+    val errorDialog: DialogModel? = null,
+    val dialog: DialogModel? = null
 )

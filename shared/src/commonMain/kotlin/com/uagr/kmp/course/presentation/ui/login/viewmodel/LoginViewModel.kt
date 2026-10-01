@@ -6,7 +6,7 @@ package com.uagr.kmp.course.presentation.ui.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uagr.kmp.course.domain.model.base.ErrorDialogModel
+import com.uagr.kmp.course.domain.model.base.DialogModel
 import com.uagr.kmp.course.domain.usecase.login.LoginFieldValidationResult
 import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
@@ -155,8 +155,8 @@ class LoginViewModel(
             }
     }
 
-    private suspend fun setErrorDialog(message: String? = null): ErrorDialogModel =
-        ErrorDialogModel(
+    private suspend fun setErrorDialog(message: String? = null): DialogModel =
+        DialogModel(
             title = getString(resource = Res.string.error),
             message = message ?: getString(resource = Res.string.please_try_again_later),
             primaryButtonText = getString(resource = Res.string.accept)
