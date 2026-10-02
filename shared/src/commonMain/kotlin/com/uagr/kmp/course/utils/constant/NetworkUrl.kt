@@ -12,4 +12,5 @@ object NetworkUrl {
     // Endpoint
     const val LOGIN_ENDPOINT = "api/v1/auth/login"
     const val REGISTER_ENDPOINT = "api/v1/auth/register"
+    const val GET_USER_ENDPOINT = "api/v1/users/me"
 }

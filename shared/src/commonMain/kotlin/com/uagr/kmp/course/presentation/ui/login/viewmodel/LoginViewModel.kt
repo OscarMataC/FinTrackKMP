@@ -148,10 +148,40 @@ class LoginViewModel(
                     )
                 }
             }.collect {
+                getUser()
+            }
+    }
+
+    private fun getUser() = viewModelScope.launch {
+        loginUseCase.getUser(url = NetworkUrl.GET_USER_ENDPOINT)
+            .onStart {
+                _loginUiState.update { state -> state.copy(isLoading = StatusLoading.SHOW_LOADING) }
+            }.catch {
                 _loginUiState.update { state ->
-                    state.copy(isLoading = StatusLoading.DISMISS_LOADING)
+                    state.copy(
+                        isLoading = StatusLoading.DISMISS_LOADING,
+                        errorDialog = setErrorDialog()
+                    )
                 }
-                _loginUiEvent.emit(LoginUiEvent.SuccessLogin)
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Success -> {
+                        _loginUiState.update { state ->
+                            state.copy(
+                                isLoading = StatusLoading.DISMISS_LOADING,
+                                errorDialog = setErrorDialog(result.response.name)
+                            )
+                        }
+                    }
+                    is NetworkResult.Error -> {
+                        _loginUiState.update { state ->
+                            state.copy(
+                                isLoading = StatusLoading.DISMISS_LOADING,
+                                errorDialog = setErrorDialog()
+                            )
+                        }
+                    }
+                }
             }
     }
 
