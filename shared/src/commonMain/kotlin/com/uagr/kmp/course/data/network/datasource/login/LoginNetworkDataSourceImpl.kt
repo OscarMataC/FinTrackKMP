@@ -4,6 +4,7 @@ import com.uagr.kmp.course.data.network.model.request.login.LoginRequest
 import com.uagr.kmp.course.data.network.model.response.login.LoginResponse
 import com.uagr.kmp.course.data.network.model.response.login.UserResponse
 import com.uagr.kmp.course.domain.mapper.login.toDomain
+import com.uagr.kmp.course.domain.mapper.user.toDomain
 import com.uagr.kmp.course.domain.model.login.LoginModel
 import com.uagr.kmp.course.domain.model.login.UserModel
 import com.uagr.kmp.course.utils.network.NetworkResult

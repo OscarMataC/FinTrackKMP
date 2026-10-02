@@ -1,4 +1,4 @@
-package com.uagr.kmp.course.data.local.model.bone
+package com.uagr.kmp.course.data.local.model
 
 import androidx.room3.Entity
 import androidx.room3.PrimaryKey

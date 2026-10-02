@@ -7,9 +7,10 @@ package com.uagr.kmp.course.di
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.uagr.kmp.course.data.local.database.AppDatabase
+import com.uagr.kmp.course.data.local.database.dao.UserDao
 import com.uagr.kmp.course.data.local.database.getDatabaseBuilder
-import com.uagr.kmp.course.data.local.datasource.bone.user.UserLocalDataSource
-import com.uagr.kmp.course.data.local.datasource.bone.user.UserLocalDataSourceImpl
+import com.uagr.kmp.course.data.local.datasource.user.UserLocalDataSource
+import com.uagr.kmp.course.data.local.datasource.user.UserLocalDataSourceImpl
 import com.uagr.kmp.course.data.local.datastore.AppDataStore
 import com.uagr.kmp.course.data.local.datastore.createDataStore
 import com.uagr.kmp.course.data.network.client.createHttpClient
@@ -27,6 +28,7 @@ import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
 import com.uagr.kmp.course.domain.usecase.register.RegisterUseCase
 import com.uagr.kmp.course.domain.usecase.register.ValidateRegisterFormUseCase
+import com.uagr.kmp.course.domain.usecase.user.InsertUserAndDeleteUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
 import com.uagr.kmp.course.presentation.ui.login.viewmodel.LoginViewModel
 import com.uagr.kmp.course.presentation.ui.register.viewmodel.RegisterViewModel
@@ -57,7 +59,9 @@ val dataStoreModule = module {
 }
 
 val databaseDaoModule = module {
-
+    single<UserDao> {
+        get<AppDatabase>().userDao()
+    }
 }
 
 val networkModule = module {
@@ -77,7 +81,8 @@ val dataSourceRemoteModule = module {
 val dataSourceLocalModule = module {
     single <UserLocalDataSource> {
         UserLocalDataSourceImpl(
-            appDataStore = get()
+            appDataStore = get(),
+            userDao = get()
         )
     }
 }
@@ -111,6 +116,7 @@ val useCaseModule = module {
     single { SaveUserTokenUseCase(get()) }
     single { ValidateRegisterFormUseCase() }
     single { RegisterUseCase(get()) }
+    single { InsertUserAndDeleteUseCase(get()) }
 }
 
 val viewmodelModule = module {

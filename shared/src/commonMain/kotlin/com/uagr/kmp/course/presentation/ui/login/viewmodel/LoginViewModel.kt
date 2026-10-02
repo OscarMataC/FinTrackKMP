@@ -7,9 +7,11 @@ package com.uagr.kmp.course.presentation.ui.login.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uagr.kmp.course.domain.model.base.DialogModel
+import com.uagr.kmp.course.domain.model.login.UserModel
 import com.uagr.kmp.course.domain.usecase.login.LoginFieldValidationResult
 import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
+import com.uagr.kmp.course.domain.usecase.user.InsertUserAndDeleteUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
 import com.uagr.kmp.course.utils.constant.NetworkUrl
 import com.uagr.kmp.course.utils.network.NetworkResult
@@ -33,7 +35,8 @@ import org.jetbrains.compose.resources.getString
 class LoginViewModel(
     private val validateLoginFormUseCase: ValidateLoginFormUseCase,
     private val loginUseCase: LoginUseCase,
-    private val saveUserTokenUseCase: SaveUserTokenUseCase
+    private val saveUserTokenUseCase: SaveUserTokenUseCase,
+    private val insertUserAndDeleteUseCase: InsertUserAndDeleteUseCase
 ): ViewModel() {
 
     private var _loginUiState = MutableStateFlow(LoginUiState())
@@ -166,12 +169,7 @@ class LoginViewModel(
             }.collect { result ->
                 when (result) {
                     is NetworkResult.Success -> {
-                        _loginUiState.update { state ->
-                            state.copy(
-                                isLoading = StatusLoading.DISMISS_LOADING,
-                                errorDialog = setErrorDialog(result.response.name)
-                            )
-                        }
+                        insertUserAndDelete(result.response)
                     }
                     is NetworkResult.Error -> {
                         _loginUiState.update { state ->
@@ -182,6 +180,23 @@ class LoginViewModel(
                         }
                     }
                 }
+            }
+    }
+
+    private fun insertUserAndDelete(user: UserModel) = viewModelScope.launch {
+        insertUserAndDeleteUseCase(user = user)
+            .catch {
+                _loginUiState.update { state ->
+                    state.copy(
+                        isLoading = StatusLoading.DISMISS_LOADING,
+                        errorDialog = setErrorDialog(),
+                    )
+                }
+            }.collect {
+                _loginUiState.update { state ->
+                    state.copy(isLoading = StatusLoading.DISMISS_LOADING)
+                }
+                _loginUiEvent.emit(LoginUiEvent.SuccessLogin)
             }
     }
 
