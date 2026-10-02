@@ -1,19 +1,11 @@
-package com.uagr.kmp.course.data.network.model.response.register
+package com.uagr.kmp.course.data.network.model.response.login
 
 import com.uagr.kmp.course.data.network.model.response.base.BaseResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RegisterResponse(
-    @SerialName("user")
-    val user: UserRegisterResponse?,
-    @SerialName("tokens")
-    val tokens: TokensRegisterResponse?
-): BaseResponse()
-
-@Serializable
-data class UserRegisterResponse(
+data class UserResponse(
     @SerialName("id")
     val id: String?,
     @SerialName("name")
@@ -34,16 +26,4 @@ data class UserRegisterResponse(
     val createdAt: String?,
     @SerialName("updated_at")
     val updatedAt: String?
-)
-
-@Serializable
-data class TokensRegisterResponse(
-    @SerialName("access_token")
-    val accessToken: String?,
-    @SerialName("refresh_token")
-    val refreshToken: String?,
-    @SerialName("token_type")
-    val tokenType: String?,
-    @SerialName("expires_in")
-    val expiresIn: Int?
-)
+): BaseResponse()

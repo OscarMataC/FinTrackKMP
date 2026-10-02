@@ -2,6 +2,7 @@ package com.uagr.kmp.course.domain.usecase.login
 
 import com.uagr.kmp.course.data.network.model.request.login.LoginRequest
 import com.uagr.kmp.course.domain.model.login.LoginModel
+import com.uagr.kmp.course.domain.model.login.UserModel
 import com.uagr.kmp.course.domain.repository.login.LoginRepository
 import com.uagr.kmp.course.utils.network.NetworkResult
 import kotlinx.coroutines.flow.Flow
@@ -19,4 +20,7 @@ class LoginUseCase(private val loginRepository: LoginRepository) {
                 password = password
             )
         )
+
+    suspend fun getUser(url: String): Flow<NetworkResult<UserModel>> =
+        loginRepository.getUser(url = url)
 }

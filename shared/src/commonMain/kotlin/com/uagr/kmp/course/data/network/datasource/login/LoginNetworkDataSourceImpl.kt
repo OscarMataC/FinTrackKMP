@@ -2,11 +2,15 @@ package com.uagr.kmp.course.data.network.datasource.login
 
 import com.uagr.kmp.course.data.network.model.request.login.LoginRequest
 import com.uagr.kmp.course.data.network.model.response.login.LoginResponse
+import com.uagr.kmp.course.data.network.model.response.login.UserResponse
 import com.uagr.kmp.course.domain.mapper.login.toDomain
+import com.uagr.kmp.course.domain.mapper.user.toDomain
 import com.uagr.kmp.course.domain.model.login.LoginModel
+import com.uagr.kmp.course.domain.model.login.UserModel
 import com.uagr.kmp.course.utils.network.NetworkResult
 import com.uagr.kmp.course.utils.network.safeApiCall
 import io.ktor.client.HttpClient
+import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
@@ -23,6 +27,18 @@ class LoginNetworkDataSourceImpl(private val httpClient: HttpClient): LoginNetwo
                 }
             },
             transform = { data: LoginResponse ->
+                data.toDomain()
+            }
+        )
+
+    override suspend fun getUser(url: String): NetworkResult<UserModel> =
+        safeApiCall(
+            apiCall = {
+                httpClient.get(urlString = url) {
+                    contentType(type = ContentType.Application.Json)
+                }
+            },
+            transform = { data: UserResponse ->
                 data.toDomain()
             }
         )
