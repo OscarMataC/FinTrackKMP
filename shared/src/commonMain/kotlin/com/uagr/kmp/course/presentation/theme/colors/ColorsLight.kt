@@ -67,6 +67,7 @@ val lightBlueC7Light = Color(0xFFC7DBFF)
 val blue1ALight = Color(0xFF1A70ED)
 val borderContainerLight = Color(0xFFDBE0E8)
 val black1FLight = Color(0xFF1F242E)
+val blueE8Light = Color(0xFFE8F0FC)
 
 // --- Light color group ---
 val lightModeAppColors = AppColors(
@@ -132,7 +133,9 @@ val lightModeAppColors = AppColors(
         white = backgroundWhiteLight,
         yellow = backgroundYellowLight,
         blue = backgroundBlueLight,
-        blue1A = blue1ALight
+        blue1A = blue1ALight,
+        gray7A = gray7ALight,
+        blueE8 = blueE8Light
     ),
     divider = dividerLight,
     backgroundProgressIndicator = backgroundProgressIndicatorLight,

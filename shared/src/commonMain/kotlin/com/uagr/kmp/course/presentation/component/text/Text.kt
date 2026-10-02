@@ -47,6 +47,7 @@ import org.jetbrains.compose.resources.stringResource
 fun TextSmallExtra(
     modifier: Modifier = Modifier,
     fontSize: TextUnit = Dimens.textSizeExtraSmall,
+    fontWeight: FontWeight = FontWeight.Normal,
     color: Color,
     text: String,
     textAlign: TextAlign = TextAlign.Center,
@@ -57,7 +58,7 @@ fun TextSmallExtra(
         textAlign = textAlign,
         style = AppTheme.typography.bodyExtraSmall.copy(
             fontSize = fontSize,
-            fontWeight = FontWeight.Normal,
+            fontWeight = fontWeight,
         ),
         color = color,
     )
