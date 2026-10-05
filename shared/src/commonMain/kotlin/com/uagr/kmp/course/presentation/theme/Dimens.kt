@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.sp
 object Dimens {
 
     // ------ Text size ------
+    val textSizeExtraSmall10: TextUnit = 10.sp
     val textSizeExtraSmall: TextUnit = 12.sp
     val textSizeExtraSmall13: TextUnit = 13.sp
     val textSizeSmall: TextUnit = 14.sp
@@ -30,6 +31,7 @@ object Dimens {
     val height8: Dp = 8.dp
     val height12: Dp = 12.dp
     val height16: Dp = 16.dp
+    val height17: Dp = 17.dp
     val height18: Dp = 18.dp
     val height19: Dp = 19.dp
     val height20: Dp = 24.dp
@@ -44,7 +46,9 @@ object Dimens {
     val height48: Dp = 48.dp
     val height50: Dp = 50.dp
     val height52: Dp = 52.dp
+    val height56: Dp = 56.dp
     val height64: Dp = 64.dp
+    val height68: Dp = 68.dp
     val height70: Dp = 70.dp
     val height80: Dp = 80.dp
     val height96: Dp = 96.dp
@@ -56,12 +60,15 @@ object Dimens {
     val width4: Dp = 4.dp
     val width8: Dp = 8.dp
     val width12: Dp = 12.dp
+    val width13: Dp = 13.dp
     val width16: Dp = 16.dp
+    val width17: Dp = 17.dp
     val width24: Dp = 24.dp
     val width28: Dp = 28.dp
     val width32: Dp = 32.dp
     val width48: Dp = 48.dp
     val width64: Dp = 64.dp
+    val width69: Dp = 69.dp
     val width80: Dp = 80.dp
     val width96: Dp = 96.dp
     val width128: Dp = 128.dp
@@ -70,6 +77,7 @@ object Dimens {
     val paddingNome: Dp = 0.dp
     val padding2: Dp = 2.dp
     val padding4: Dp = 4.dp
+    val padding5: Dp = 5.dp
     val padding8: Dp = 8.dp
     val padding12: Dp = 12.dp
     val padding16: Dp = 16.dp
@@ -90,10 +98,12 @@ object Dimens {
     val corner2: Dp = 2.dp
     val corner4: Dp = 4.dp
     val corner8: Dp = 8.dp
+    val corner10: Dp = 10.dp
     val corner12: Dp = 12.dp
     val corner14: Dp = 14.dp
     val corner16: Dp = 16.dp
     val corner20: Dp = 24.dp
+    val corner22: Dp = 22.dp
     val corner24: Dp = 24.dp
     val corner28: Dp = 28.dp
     val corner32: Dp = 32.dp

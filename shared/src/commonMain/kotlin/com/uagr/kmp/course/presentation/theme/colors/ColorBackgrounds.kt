@@ -13,5 +13,7 @@ data class ColorBackgrounds(
     val white: Color = Color.Unspecified,
     val yellow: Color = Color.Unspecified,
     val blue: Color = Color.Unspecified,
-    val blue1A: Color = Color.Unspecified
+    val blue1A: Color = Color.Unspecified,
+    val gray7A: Color = Color.Unspecified,
+    val blueE8: Color = Color.Unspecified
 )
