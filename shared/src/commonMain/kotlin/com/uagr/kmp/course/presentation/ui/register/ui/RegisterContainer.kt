@@ -87,7 +87,7 @@ fun RegisterContainer(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = Dimens.padding41),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TextBigBold(
                 modifier = Modifier.fillMaxWidth(),
@@ -110,7 +110,7 @@ fun RegisterContainer(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = Dimens.padding28),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TextFieldCustom(
                 value = name,
@@ -121,7 +121,7 @@ fun RegisterContainer(
                 placeholder = stringResource(Res.string.name_example),
                 shape = Dimens.corner14,
                 keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next,
+                imeAction = ImeAction.Next
             )
             Spacer(Modifier.height(Dimens.height24))
             TextFieldCustom(
@@ -133,7 +133,7 @@ fun RegisterContainer(
                 placeholder = stringResource(Res.string.email_example),
                 shape = Dimens.corner14,
                 keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next,
+                imeAction = ImeAction.Next
             )
             Spacer(Modifier.height(Dimens.height24))
             TextFieldPassword(
@@ -149,7 +149,7 @@ fun RegisterContainer(
                 trailingIconActive = Res.drawable.ic_visibility_on,
                 trailingIconInActive = Res.drawable.ic_visibility_off,
                 keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Next,
+                imeAction = ImeAction.Next
             )
             Spacer(Modifier.height(Dimens.height24))
             TextFieldPassword(
@@ -169,7 +169,7 @@ fun RegisterContainer(
                 keyboardActions = KeyboardActions(
                     onAny = {
                         focusManager.clearFocus()
-                    },
+                    }
                 )
             )
             Spacer(Modifier.height(Dimens.height128))
@@ -182,6 +182,7 @@ fun RegisterContainer(
                 textAlign = TextAlign.Start,
                 shape = Dimens.corner14
             )
+            Spacer(modifier = Modifier.height(height = Dimens.height30))
         }
     }
 }

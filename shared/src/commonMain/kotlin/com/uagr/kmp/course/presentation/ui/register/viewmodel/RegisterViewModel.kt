@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getString
 
 class RegisterViewModel(
@@ -69,52 +70,22 @@ class RegisterViewModel(
     = viewModelScope.launch {
         when(validateRegisterFormUseCase(name, email, password, confirmPassword)) {
             RegisterFieldValidationResult.EmptyName -> {
-                _registerUiState.update { state ->
-                    state.copy(
-                        errorDialog = setErrorDialog(
-                            message = getString(Res.string.missing_fields)
-                        )
-                    )
-                }
+                showErrorDialog(Res.string.missing_fields)
             }
             RegisterFieldValidationResult.EmptyEmail -> {
-                _registerUiState.update { state ->
-                    state.copy(
-                        errorDialog = setErrorDialog(
-                            message = getString(Res.string.missing_fields)
-                        )
-                    )
-                }
+                showErrorDialog(Res.string.missing_fields)
             }
             RegisterFieldValidationResult.EmptyPassword -> {
-                _registerUiState.update { state ->
-                    state.copy(
-                        errorDialog = setErrorDialog(
-                            message = getString(Res.string.missing_fields)
-                        )
-                    )
-                }
+                showErrorDialog(Res.string.missing_fields)
             }
             RegisterFieldValidationResult.EmptyConfirmPassword -> {
-                _registerUiState.update { state ->
-                    state.copy(
-                        errorDialog = setErrorDialog(
-                            message = getString(Res.string.missing_fields)
-                        )
-                    )
-                }
+                showErrorDialog(Res.string.missing_fields)
             }
             RegisterFieldValidationResult.FilledFields -> {
                 if(validateSamePassword(password = password, confirmPassword = confirmPassword)) {
                     register(name = name, email = email, password = password)
                 } else {
-                    _registerUiState.update { state ->
-                        state.copy(
-                            errorDialog = setErrorDialog(
-                                message = getString(Res.string.passwords_dont_match)
-                            )
-                        )
-                    }
+                    showErrorDialog(Res.string.passwords_dont_match)
                 }
             }
         }
@@ -130,36 +101,25 @@ class RegisterViewModel(
             email = email,
             password = password
         ).onStart {
-            _registerUiState.update { state -> state.copy(isLoading = StatusLoading.SHOW_LOADING) }
+            showLoader()
         }.catch {
-            _registerUiState.update { state ->
-                state.copy(
-                    isLoading = StatusLoading.DISMISS_LOADING,
-                    errorDialog = setErrorDialog()
-                )
-            }
+            hideLoaderAndShowGenericErrorDialog()
         }.collect { result ->
             when (result) {
                 is NetworkResult.Success -> {
+                    hideLoader()
                     _registerUiState.update { state ->
                         state.copy(
-                            isLoading = StatusLoading.DISMISS_LOADING,
                             dialog = setMessageDialog(
                                 getString(resource = Res.string.successful_register_title),
                                 message = getString(resource = Res.string.successful_register_description)
                             )
                         )
                     }
-
                     _registerUiEvent.emit(RegisterUiEvent.SuccessfulRegister)
                 }
                 is NetworkResult.Error -> {
-                    _registerUiState.update { state ->
-                        state.copy(
-                            isLoading = StatusLoading.DISMISS_LOADING,
-                            errorDialog = setErrorDialog()
-                        )
-                    }
+                    hideLoaderAndShowGenericErrorDialog()
                 }
             }
         }
@@ -181,5 +141,24 @@ class RegisterViewModel(
 
     fun dismissErrorDialog() = viewModelScope.launch {
         _registerUiState.update { state -> state.copy(errorDialog = null) }
+    }
+
+    private fun showLoader() {
+        _registerUiState.update { state -> state.copy(isLoading = StatusLoading.SHOW_LOADING) }
+    }
+
+    private fun hideLoader() {
+        _registerUiState.update { state -> state.copy(isLoading = StatusLoading.DISMISS_LOADING) }
+    }
+
+    private suspend fun hideLoaderAndShowGenericErrorDialog() {
+        hideLoader()
+        _registerUiState.update { state -> state.copy(errorDialog = setErrorDialog()) }
+    }
+
+    private suspend fun showErrorDialog(message: StringResource) {
+        _registerUiState.update { state ->
+            state.copy(errorDialog = setErrorDialog(message = getString(message)))
+        }
     }
 }

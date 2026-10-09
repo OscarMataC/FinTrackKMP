@@ -30,6 +30,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getString
 
 class LoginViewModel(
@@ -71,31 +72,13 @@ class LoginViewModel(
             password = password
         )) {
             is LoginFieldValidationResult.EmptyFields -> {
-                _loginUiState.update { state ->
-                    state.copy(
-                        errorDialog = setErrorDialog(
-                            message = getString(Res.string.email_and_password_empty)
-                        )
-                    )
-                }
+                showErrorDialog(Res.string.email_and_password_empty)
             }
             is LoginFieldValidationResult.EmptyEmail -> {
-                _loginUiState.update { state ->
-                    state.copy(
-                        errorDialog = setErrorDialog(
-                            message = getString(Res.string.email_empty)
-                        )
-                    )
-                }
+                showErrorDialog(Res.string.email_empty)
             }
             is LoginFieldValidationResult.EmptyPassword -> {
-                _loginUiState.update { state ->
-                    state.copy(
-                        errorDialog = setErrorDialog(
-                            message = getString(Res.string.password_empty)
-                        )
-                    )
-                }
+                showErrorDialog(Res.string.password_empty)
             }
             is LoginFieldValidationResult.FilledFields -> {
                 login(email = email, password = password)
@@ -106,14 +89,9 @@ class LoginViewModel(
     private fun login(email: String, password: String) = viewModelScope.launch {
         loginUseCase.login(url = NetworkUrl.LOGIN_ENDPOINT, email = email, password = password)
             .onStart {
-            _loginUiState.update { state -> state.copy(isLoading = StatusLoading.SHOW_LOADING) }
+            showLoader()
             }.catch {
-                _loginUiState.update { state ->
-                    state.copy(
-                    isLoading = StatusLoading.DISMISS_LOADING,
-                    errorDialog = setErrorDialog()
-                    )
-                }
+                hideLoaderAndShowGenericErrorDialog()
             }.collect { result ->
                 when (result) {
                     is NetworkResult.Success -> {
@@ -121,21 +99,11 @@ class LoginViewModel(
                         if(accessToken.isNotEmpty()) {
                             saveUserToken(accessToken)
                         } else {
-                            _loginUiState.update { state ->
-                                state.copy(
-                                    isLoading = StatusLoading.DISMISS_LOADING,
-                                    errorDialog = setErrorDialog()
-                                )
-                            }
+                            hideLoaderAndShowGenericErrorDialog()
                         }
                     }
                     is NetworkResult.Error -> {
-                        _loginUiState.update { state ->
-                            state.copy(
-                                isLoading = StatusLoading.DISMISS_LOADING,
-                                errorDialog = setErrorDialog()
-                            )
-                        }
+                        hideLoaderAndShowGenericErrorDialog()
                     }
                 }
             }
@@ -144,12 +112,7 @@ class LoginViewModel(
     private fun saveUserToken(token: String) = viewModelScope.launch {
         saveUserTokenUseCase(token = token)
             .catch {
-                _loginUiState.update { state ->
-                    state.copy(
-                        isLoading = StatusLoading.DISMISS_LOADING,
-                        errorDialog = setErrorDialog(),
-                    )
-                }
+                hideLoaderAndShowGenericErrorDialog()
             }.collect {
                 getUser()
             }
@@ -157,27 +120,15 @@ class LoginViewModel(
 
     private fun getUser() = viewModelScope.launch {
         loginUseCase.getUser(url = NetworkUrl.GET_USER_ENDPOINT)
-            .onStart {
-                _loginUiState.update { state -> state.copy(isLoading = StatusLoading.SHOW_LOADING) }
-            }.catch {
-                _loginUiState.update { state ->
-                    state.copy(
-                        isLoading = StatusLoading.DISMISS_LOADING,
-                        errorDialog = setErrorDialog()
-                    )
-                }
+            .catch {
+                hideLoaderAndShowGenericErrorDialog()
             }.collect { result ->
                 when (result) {
                     is NetworkResult.Success -> {
                         insertUserAndDelete(result.response)
                     }
                     is NetworkResult.Error -> {
-                        _loginUiState.update { state ->
-                            state.copy(
-                                isLoading = StatusLoading.DISMISS_LOADING,
-                                errorDialog = setErrorDialog()
-                            )
-                        }
+                        hideLoaderAndShowGenericErrorDialog()
                     }
                 }
             }
@@ -186,16 +137,9 @@ class LoginViewModel(
     private fun insertUserAndDelete(user: UserModel) = viewModelScope.launch {
         insertUserAndDeleteUseCase(user = user)
             .catch {
-                _loginUiState.update { state ->
-                    state.copy(
-                        isLoading = StatusLoading.DISMISS_LOADING,
-                        errorDialog = setErrorDialog(),
-                    )
-                }
+                hideLoaderAndShowGenericErrorDialog()
             }.collect {
-                _loginUiState.update { state ->
-                    state.copy(isLoading = StatusLoading.DISMISS_LOADING)
-                }
+                hideLoader()
                 _loginUiEvent.emit(LoginUiEvent.SuccessLogin)
             }
     }
@@ -209,5 +153,28 @@ class LoginViewModel(
 
     fun dismissErrorDialog() = viewModelScope.launch {
         _loginUiState.update { state -> state.copy(errorDialog = null) }
+    }
+
+    private fun showLoader() {
+        _loginUiState.update { state -> state.copy(isLoading = StatusLoading.SHOW_LOADING) }
+    }
+
+    private fun hideLoader() {
+        _loginUiState.update { state -> state.copy(isLoading = StatusLoading.DISMISS_LOADING) }
+    }
+
+    private suspend fun hideLoaderAndShowGenericErrorDialog(message: String? = null) {
+        hideLoader()
+        _loginUiState.update { state -> state.copy(errorDialog = setErrorDialog(message)) }
+    }
+
+    private suspend fun showErrorDialog(message: StringResource) {
+        _loginUiState.update { state ->
+            state.copy(
+                errorDialog = setErrorDialog(
+                    message = getString(message)
+                )
+            )
+        }
     }
 }

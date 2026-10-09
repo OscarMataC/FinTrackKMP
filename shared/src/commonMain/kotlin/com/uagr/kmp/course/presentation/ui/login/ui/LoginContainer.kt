@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -67,9 +68,10 @@ fun LoginContainer(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .imePadding()
             .padding(horizontal = Dimens.padding28)
             .verticalScroll(state = scrollState),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Spacer(Modifier.height(Dimens.height20))
@@ -126,7 +128,7 @@ fun LoginContainer(
             placeholder = stringResource(Res.string.email_example),
             shape = Dimens.corner14,
             keyboardType = KeyboardType.Email,
-            imeAction = ImeAction.Next,
+            imeAction = ImeAction.Next
         )
         Spacer(Modifier.height(Dimens.height12))
         TextFieldPassword(
@@ -146,8 +148,8 @@ fun LoginContainer(
             keyboardActions = KeyboardActions(
                 onAny = {
                     focusManager.clearFocus()
-                },
-            ),
+                }
+            )
         )
         Spacer(modifier = Modifier.height(height = Dimens.height26))
         ButtonCustom(
@@ -166,6 +168,7 @@ fun LoginContainer(
             text = stringResource(Res.string.create_account),
             fontSize = Dimens.textSizeExtraSmall13
         )
+        Spacer(modifier = Modifier.height(height = Dimens.height30))
     }
 }
 
