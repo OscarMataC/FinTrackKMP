@@ -1,4 +1,4 @@
-package com.uagr.kmp.course.presentation.ui.home
+package com.uagr.kmp.course.presentation.ui.home.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices

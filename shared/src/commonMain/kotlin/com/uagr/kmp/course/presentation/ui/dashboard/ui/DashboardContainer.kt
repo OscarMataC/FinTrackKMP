@@ -22,7 +22,7 @@ import com.uagr.kmp.course.presentation.ui.dashboard.navigation.Goals
 import com.uagr.kmp.course.presentation.ui.dashboard.navigation.Home
 import com.uagr.kmp.course.presentation.ui.dashboard.navigation.Movements
 import com.uagr.kmp.course.presentation.ui.goals.GoalsScreen
-import com.uagr.kmp.course.presentation.ui.home.HomeScreen
+import com.uagr.kmp.course.presentation.ui.home.ui.HomeScreen
 import com.uagr.kmp.course.presentation.ui.movements.MovementsScreen
 import course.shared.generated.resources.Res
 import course.shared.generated.resources.selected_dot

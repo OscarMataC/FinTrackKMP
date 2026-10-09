@@ -13,30 +13,44 @@ object Dimens {
 
     // ------ Text size ------
     val textSizeExtraSmall10: TextUnit = 10.sp
+    val textSizeExtraSmall11: TextUnit = 11.sp
     val textSizeExtraSmall: TextUnit = 12.sp
+
     val textSizeExtraSmall13: TextUnit = 13.sp
     val textSizeSmall: TextUnit = 14.sp
     val textSizeSmall15: TextUnit = 15.sp
     val textSizeNormal: TextUnit = 16.sp
+    val textSizeNormal18: TextUnit = 18.sp
     val textSizeMedium: TextUnit = 20.sp
+    val textSizeMedium23: TextUnit = 23.sp
     val textSizeBig: TextUnit = 24.sp
+    val textSizeBig25: TextUnit = 25.sp
     val textSizeBig30: TextUnit = 30.sp
     val textSizeBig34: TextUnit = 34.sp
     val textSizeBigExtra: TextUnit = 40.sp
 
     // ------ Height ------
     val heightNome: Dp = 0.dp
+    val height1: Dp = 1.dp
     val height2: Dp = 2.dp
     val height4: Dp = 4.dp
+    val height5: Dp = 5.dp
+    val height6: Dp = 6.dp
+    val height7: Dp = 7.dp
     val height8: Dp = 8.dp
     val height12: Dp = 12.dp
+    val height13: Dp = 13.dp
+    val height14: Dp = 14.dp
     val height16: Dp = 16.dp
     val height17: Dp = 17.dp
     val height18: Dp = 18.dp
     val height19: Dp = 19.dp
-    val height20: Dp = 24.dp
+    val height21: Dp = 21.dp
+    val height22: Dp = 22.dp
+    val height20: Dp = 20.dp
     val height24: Dp = 24.dp
     val height26: Dp = 26.dp
+    val height27: Dp = 27.dp
     val height28: Dp = 28.dp
     val height30: Dp = 30.dp
     val height32: Dp = 32.dp
@@ -61,6 +75,7 @@ object Dimens {
     val width8: Dp = 8.dp
     val width12: Dp = 12.dp
     val width13: Dp = 13.dp
+    val width14: Dp = 14.dp
     val width16: Dp = 16.dp
     val width17: Dp = 17.dp
     val width24: Dp = 24.dp
@@ -82,7 +97,11 @@ object Dimens {
     val padding12: Dp = 12.dp
     val padding16: Dp = 16.dp
     val padding18: Dp = 18.dp
+    val padding19: Dp = 19.dp
+    val padding20: Dp = 20.dp
+    val padding22: Dp = 22.dp
     val padding24: Dp = 24.dp
+    val corner26: Dp = 26.dp
     val padding28: Dp = 28.dp
     val padding31: Dp = 31.dp
     val padding32: Dp = 32.dp
@@ -100,9 +119,10 @@ object Dimens {
     val corner8: Dp = 8.dp
     val corner10: Dp = 10.dp
     val corner12: Dp = 12.dp
+    val corner13: Dp = 13.dp
     val corner14: Dp = 14.dp
     val corner16: Dp = 16.dp
-    val corner20: Dp = 24.dp
+    val corner20: Dp = 20.dp
     val corner22: Dp = 22.dp
     val corner24: Dp = 24.dp
     val corner28: Dp = 28.dp

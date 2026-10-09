@@ -17,5 +17,9 @@ data class ColorTexts(
     val gray7A: Color = Color.Unspecified,
     val grayA1: Color = Color.Unspecified,
     val blueC7: Color = Color.Unspecified,
-    val blue1A: Color = Color.Unspecified
+    val blue1A: Color = Color.Unspecified,
+    val black1A: Color = Color.Unspecified,
+    val blueC2: Color = Color.Unspecified,
+    val green17: Color = Color.Unspecified,
+    val redE5: Color = Color.Unspecified
 )

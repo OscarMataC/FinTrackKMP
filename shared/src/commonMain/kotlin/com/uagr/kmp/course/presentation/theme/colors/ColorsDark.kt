@@ -69,6 +69,12 @@ val blue1ADark = Color(0xFF1A70ED)
 val borderContainerDark = Color(0xFFDBE0E8)
 val black1FDark = Color(0xFF1F242E)
 val blueE8Dark = Color(0xFFE8F0FC)
+val black1ADark = Color(0xFF1A1F29)
+val blueC2Dark = Color(0xFFC2D6FA)
+val green17Dark = Color(0xFF17A36E)
+val redE5Dark = Color(0xFFE5454D)
+val redFFDark = Color(0xFFFFEDF0)
+val greenE5Dark = Color(0xFFE5FAF2)
 
 
 // --- Dark color group ---
@@ -128,7 +134,11 @@ val darkModeAppColors = AppColors(
         gray7A = gray7ADark,
         grayA1 = grayA1Dark,
         blueC7 = lightBlueC7Dark,
-        blue1A = blue1ADark
+        blue1A = blue1ADark,
+        black1A = black1ADark,
+        blueC2 = blueC2Dark,
+        green17 = green17Dark,
+        redE5 = redE5Dark
     ),
     backgrounds = ColorBackgrounds(
         black = backgroundBlackDark,
@@ -137,7 +147,9 @@ val darkModeAppColors = AppColors(
         blue = backgroundBlueDark,
         blue1A = blue1ADark,
         gray7A = gray7ADark,
-        blueE8 = blueE8Dark
+        blueE8 = blueE8Dark,
+        redFF = redFFDark,
+        greenE5 = greenE5Dark,
     ),
     divider = dividerDark,
     backgroundProgressIndicator = backgroundProgressIndicatorDark,

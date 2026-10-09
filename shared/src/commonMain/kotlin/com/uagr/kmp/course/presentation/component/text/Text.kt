@@ -88,6 +88,7 @@ fun TextSmallExtraBold(
 fun TextSmall(
     modifier: Modifier = Modifier,
     fontSize: TextUnit = Dimens.textSizeSmall,
+    fontWeight: FontWeight = FontWeight.Normal,
     color: Color,
     text: String,
     textAlign: TextAlign = TextAlign.Center,
@@ -98,7 +99,7 @@ fun TextSmall(
         textAlign = textAlign,
         style = AppTheme.typography.bodySmall.copy(
             fontSize = fontSize,
-            fontWeight = FontWeight.Normal,
+            fontWeight = fontWeight,
         ),
         color = color,
     )
@@ -128,6 +129,7 @@ fun TextSmallBold(
 fun TextNormal(
     modifier: Modifier = Modifier,
     fontSize: TextUnit = Dimens.textSizeNormal,
+    fontWeight: FontWeight = FontWeight.Normal,
     color: Color,
     text: String,
     textAlign: TextAlign = TextAlign.Center,
@@ -138,7 +140,7 @@ fun TextNormal(
         textAlign = textAlign,
         style = AppTheme.typography.bodyNormal.copy(
             fontSize = fontSize,
-            fontWeight = FontWeight.Normal,
+            fontWeight = fontWeight,
         ),
         color = color,
     )
