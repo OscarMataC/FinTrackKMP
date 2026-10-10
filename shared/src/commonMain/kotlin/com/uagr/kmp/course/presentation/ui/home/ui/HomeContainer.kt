@@ -1,6 +1,5 @@
 package com.uagr.kmp.course.presentation.ui.home.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,20 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key.Companion.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.uagr.kmp.course.presentation.component.card.SimpleCard
 import com.uagr.kmp.course.presentation.component.container.SafeScreenContainerTest
 import com.uagr.kmp.course.presentation.component.lazyColumn.ItemMovement
 import com.uagr.kmp.course.presentation.component.lazyColumn.ItemTest
-import com.uagr.kmp.course.presentation.component.lazyColumn.MovementsLazyColumn
 import com.uagr.kmp.course.presentation.component.text.TextBigBold
 import com.uagr.kmp.course.presentation.component.text.TextNormal
 import com.uagr.kmp.course.presentation.component.text.TextSmall
@@ -33,22 +27,16 @@ import com.uagr.kmp.course.presentation.component.text.TextSmallExtra
 import com.uagr.kmp.course.presentation.theme.AppTheme
 import com.uagr.kmp.course.presentation.theme.Dimens
 import course.shared.generated.resources.Res
-import course.shared.generated.resources.available_balance
-import course.shared.generated.resources.empty_balances
 import course.shared.generated.resources.expenses
-import course.shared.generated.resources.hello_user
-import course.shared.generated.resources.income
 import course.shared.generated.resources.last_movements
-import course.shared.generated.resources.mini_chart
 import course.shared.generated.resources.this_month
 import course.shared.generated.resources.total_balance
 import course.shared.generated.resources.view_all
 import course.shared.generated.resources.your_financial_outlook
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun HomeContainer() {
+fun HomeContainer(userName: String) {
     val scrollState = rememberScrollState()
     val itemTestMovements= listOf<ItemTest>(
         ItemTest(
@@ -82,7 +70,7 @@ fun HomeContainer() {
             fontSize =  Dimens.textSizeSmall15,
             fontWeight = FontWeight.Medium,
             color = AppTheme.colors.text.gray7A,
-            text = "Hola, Usuario",
+            text = "Hola, $userName",
             textAlign = TextAlign.Left,
         )
         Spacer(Modifier.height(Dimens.height7))
@@ -264,8 +252,8 @@ fun HomeContainer() {
         Spacer(Modifier.height(Dimens.height18))
         Column(modifier = Modifier.fillMaxWidth()) {
             itemTestMovements.forEach { itemTest ->
-                Spacer(Modifier.height(Dimens.height5))
                 ItemMovement(itemTest)
+                Spacer(Modifier.height(Dimens.height16))
             }
         }
         Spacer(Modifier.height(Dimens.height30))
@@ -279,6 +267,6 @@ fun HomeContainer() {
 @Composable
 private fun HomeContainerPreview() {
     SafeScreenContainerTest {
-        HomeContainer()
+        HomeContainer("Usuario")
     }
 }

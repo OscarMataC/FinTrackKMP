@@ -16,4 +16,6 @@ class UserLocalDataSourceImpl(
     override suspend fun insertUserAndDelete(user: UserModel) {
         userDao.insertUserAndDeleteOld(user = user.toEntity())
     }
+
+    override suspend fun getUser(): UserModel? = userDao.getUser()
 }

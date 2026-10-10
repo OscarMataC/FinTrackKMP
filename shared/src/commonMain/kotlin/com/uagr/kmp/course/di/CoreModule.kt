@@ -22,14 +22,16 @@ import com.uagr.kmp.course.domain.repository.login.LoginRepository
 import com.uagr.kmp.course.domain.repository.login.LoginRepositoryImpl
 import com.uagr.kmp.course.domain.repository.register.RegisterRepository
 import com.uagr.kmp.course.domain.repository.register.RegisterRepositoryImpl
-import com.uagr.kmp.course.domain.repository.user.UserRepository
-import com.uagr.kmp.course.domain.repository.user.UserRepositoryImpl
+import com.uagr.kmp.course.domain.repository.user.UserLocalDataRepository
+import com.uagr.kmp.course.domain.repository.user.UserLocalDataRepositoryImpl
 import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
 import com.uagr.kmp.course.domain.usecase.register.RegisterUseCase
 import com.uagr.kmp.course.domain.usecase.register.ValidateRegisterFormUseCase
+import com.uagr.kmp.course.domain.usecase.user.GetUserUseCase
 import com.uagr.kmp.course.domain.usecase.user.InsertUserAndDeleteUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
+import com.uagr.kmp.course.presentation.ui.home.viewmodel.HomeViewModel
 import com.uagr.kmp.course.presentation.ui.login.viewmodel.LoginViewModel
 import com.uagr.kmp.course.presentation.ui.register.viewmodel.RegisterViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -95,8 +97,8 @@ val repositoryModule = module {
         )
     }
 
-    single <UserRepository> {
-        UserRepositoryImpl(
+    single <UserLocalDataRepository> {
+        UserLocalDataRepositoryImpl(
             userLocalDataSource = get(),
             ioDispatcher = get()
         )
@@ -117,11 +119,13 @@ val useCaseModule = module {
     single { ValidateRegisterFormUseCase() }
     single { RegisterUseCase(get()) }
     single { InsertUserAndDeleteUseCase(get()) }
+    single { GetUserUseCase(get()) }
 }
 
 val viewmodelModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
+    single { HomeViewModel(get()) }
 }
 
 fun initKoin(config: KoinAppDeclaration? = null) {

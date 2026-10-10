@@ -5,4 +5,5 @@ import com.uagr.kmp.course.domain.model.login.UserModel
 interface UserLocalDataSource {
     suspend fun saveUserToken(token: String)
     suspend fun insertUserAndDelete(user: UserModel)
+    suspend fun getUser(): UserModel?
 }

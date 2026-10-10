@@ -7,15 +7,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class UserRepositoryImpl(
+class UserLocalDataRepositoryImpl(
     private val userLocalDataSource: UserLocalDataSource,
     private val ioDispatcher: CoroutineDispatcher
-): UserRepository {
+): UserLocalDataRepository {
     override suspend fun saveUserToken(token: String): Flow<Unit> = flow {
         emit(userLocalDataSource.saveUserToken(token = token))
     }.flowOn(context = ioDispatcher)
 
     override suspend fun insertUserAndDelete(user: UserModel): Flow<Unit> = flow {
         emit(userLocalDataSource.insertUserAndDelete(user = user))
+    }.flowOn(context = ioDispatcher)
+
+    override suspend fun getUser(): Flow<UserModel?> = flow {
+        emit(userLocalDataSource.getUser())
     }.flowOn(context = ioDispatcher)
 }
