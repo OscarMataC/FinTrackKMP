@@ -22,7 +22,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
-    onLoginSuccess: () -> Unit = {},
+    onLoginSuccessWithCashAccount: (String) -> Unit = {},
+    onLoginSuccessWithoutCashAccount: () -> Unit = {},
     navigateToRegister: () -> Unit = {}
 ) {
 
@@ -34,7 +35,11 @@ fun LoginScreen(
             is LoginUiEvent.ShowVersionInfoDialog -> {}
             is LoginUiEvent.SuccessLogin -> {
                 viewModel.resetUiEvent()
-                onLoginSuccess()
+                if(loginUiState.idUserCashAccount.isNotEmpty()) {
+                    onLoginSuccessWithCashAccount(loginUiState.idUserCashAccount)
+                } else {
+                    onLoginSuccessWithoutCashAccount()
+                }
             }
         }
     }

@@ -6,10 +6,10 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.uagr.kmp.course.presentation.ui.dashboard.ui.DashboardScreen
 
-data object DashboardNavigation: Screen {
+data class DashboardNavigation(val idCashAccount: String): Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        DashboardScreen()
+        DashboardScreen(idCashAccount)
     }
 }

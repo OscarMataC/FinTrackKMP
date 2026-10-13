@@ -29,7 +29,7 @@ import course.shared.generated.resources.selected_dot
 import course.shared.generated.resources.unselected_dot
 
 @Composable
-fun DashboardContainer() {
+fun DashboardContainer(idCashAccount: String) {
 
     val navController = rememberNavController()
     val navStackEntry by navController.currentBackStackEntryAsState()
@@ -108,6 +108,6 @@ fun DashboardContainer() {
 @Composable
 private fun DashboardContainerPreview() {
     SafeScreenContainerTest {
-        DashboardContainer()
+        DashboardContainer("")
     }
 }

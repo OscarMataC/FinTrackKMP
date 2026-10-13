@@ -17,8 +17,11 @@ data object LoginNavigation : Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         LoginScreen(
-            onLoginSuccess = {
-                navigator.replaceAll(DashboardNavigation)
+            onLoginSuccessWithCashAccount = {
+                navigator.replaceAll(DashboardNavigation(it))
+            },
+            onLoginSuccessWithoutCashAccount = {
+                //Navegar a pantalla para crear cuenta bancaria
             },
             navigateToRegister = {
                 navigator.push(RegisterNavigation)

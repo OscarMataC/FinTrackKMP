@@ -9,4 +9,5 @@ data class LoginUiState(
     val password: String = "",
     val passwordVisible: Boolean = false,
     val errorDialog: DialogModel? = null,
+    val idUserCashAccount: String = ""
 )

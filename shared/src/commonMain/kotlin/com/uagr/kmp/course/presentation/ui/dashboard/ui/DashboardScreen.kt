@@ -7,9 +7,9 @@ import com.uagr.kmp.course.presentation.component.container.SafeScreenContainer
 import com.uagr.kmp.course.presentation.component.container.SafeScreenContainerTest
 
 @Composable
-fun DashboardScreen() {
+fun DashboardScreen(idCashAccount: String) {
     SafeScreenContainer {
-        DashboardContainer()
+        DashboardContainer(idCashAccount)
     }
 }
 
@@ -20,6 +20,6 @@ fun DashboardScreen() {
 @Composable
 private fun DashboardScreenPreview() {
     SafeScreenContainerTest {
-        DashboardContainer()
+        DashboardContainer("")
     }
 }

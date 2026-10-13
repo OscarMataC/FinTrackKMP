@@ -18,12 +18,16 @@ import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSource
 import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSourceImpl
 import com.uagr.kmp.course.data.network.datasource.register.RegisterNetworkDataSource
 import com.uagr.kmp.course.data.network.datasource.register.RegisterNetworkDataSourceImpl
+import com.uagr.kmp.course.data.network.datasource.cashAccounts.UserCashAccountsNetworkDataSource
+import com.uagr.kmp.course.data.network.datasource.cashAccounts.UserCashAccountsNetworkDataSourceImpl
 import com.uagr.kmp.course.domain.repository.login.LoginRepository
 import com.uagr.kmp.course.domain.repository.login.LoginRepositoryImpl
 import com.uagr.kmp.course.domain.repository.register.RegisterRepository
 import com.uagr.kmp.course.domain.repository.register.RegisterRepositoryImpl
 import com.uagr.kmp.course.domain.repository.user.UserLocalDataRepository
 import com.uagr.kmp.course.domain.repository.user.UserLocalDataRepositoryImpl
+import com.uagr.kmp.course.domain.repository.cashAccounts.UserCashAccountsRepository
+import com.uagr.kmp.course.domain.repository.cashAccounts.UserCashAccountsRepositoryImpl
 import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
 import com.uagr.kmp.course.domain.usecase.register.RegisterUseCase
@@ -31,6 +35,7 @@ import com.uagr.kmp.course.domain.usecase.register.ValidateRegisterFormUseCase
 import com.uagr.kmp.course.domain.usecase.user.GetUserUseCase
 import com.uagr.kmp.course.domain.usecase.user.InsertUserAndDeleteUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
+import com.uagr.kmp.course.domain.usecase.cashAccounts.UserCashAccountsUseCase
 import com.uagr.kmp.course.presentation.ui.home.viewmodel.HomeViewModel
 import com.uagr.kmp.course.presentation.ui.login.viewmodel.LoginViewModel
 import com.uagr.kmp.course.presentation.ui.register.viewmodel.RegisterViewModel
@@ -78,6 +83,10 @@ val dataSourceRemoteModule = module {
     single<RegisterNetworkDataSource> {
         RegisterNetworkDataSourceImpl(get())
     }
+
+    single<UserCashAccountsNetworkDataSource> {
+        UserCashAccountsNetworkDataSourceImpl(get())
+    }
 }
 
 val dataSourceLocalModule = module {
@@ -110,6 +119,13 @@ val repositoryModule = module {
             ioDispatcher = get()
         )
     }
+
+    single <UserCashAccountsRepository> {
+        UserCashAccountsRepositoryImpl(
+            accountsNetworkDataSource = get(),
+            ioDispatcher = get()
+        )
+    }
 }
 
 val useCaseModule = module {
@@ -120,6 +136,7 @@ val useCaseModule = module {
     single { RegisterUseCase(get()) }
     single { InsertUserAndDeleteUseCase(get()) }
     single { GetUserUseCase(get()) }
+    single { UserCashAccountsUseCase(get()) }
 }
 
 val viewmodelModule = module {

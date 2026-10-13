@@ -13,6 +13,7 @@ import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
 import com.uagr.kmp.course.domain.usecase.user.InsertUserAndDeleteUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
+import com.uagr.kmp.course.domain.usecase.cashAccounts.UserCashAccountsUseCase
 import com.uagr.kmp.course.utils.constant.NetworkUrl
 import com.uagr.kmp.course.utils.network.NetworkResult
 import com.uagr.kmp.course.utils.operators.StatusLoading
@@ -37,7 +38,8 @@ class LoginViewModel(
     private val validateLoginFormUseCase: ValidateLoginFormUseCase,
     private val loginUseCase: LoginUseCase,
     private val saveUserTokenUseCase: SaveUserTokenUseCase,
-    private val insertUserAndDeleteUseCase: InsertUserAndDeleteUseCase
+    private val insertUserAndDeleteUseCase: InsertUserAndDeleteUseCase,
+    private val userCashAccountsUseCase: UserCashAccountsUseCase
 ): ViewModel() {
 
     private var _loginUiState = MutableStateFlow(LoginUiState())
@@ -119,7 +121,7 @@ class LoginViewModel(
     }
 
     private fun getUser() = viewModelScope.launch {
-        loginUseCase.getUser(url = NetworkUrl.GET_USER_ENDPOINT)
+        loginUseCase.getUser(url = NetworkUrl.USER_ENDPOINT)
             .catch {
                 hideLoaderAndShowGenericErrorDialog()
             }.collect { result ->
@@ -139,8 +141,32 @@ class LoginViewModel(
             .catch {
                 hideLoaderAndShowGenericErrorDialog()
             }.collect {
-                hideLoader()
-                _loginUiEvent.emit(LoginUiEvent.SuccessLogin)
+                getUserCashAccount()
+            }
+    }
+
+    private fun getUserCashAccount() = viewModelScope.launch {
+        userCashAccountsUseCase(url = NetworkUrl.ACCOUNTS_ENDPOINT, page = 1, pageSize = 1)
+            .catch {
+                hideLoaderAndShowGenericErrorDialog()
+            }.collect { result ->
+
+                when(result) {
+                    is NetworkResult.Success -> {
+                        val userListAccount = result.response
+                        if(userListAccount.isNotEmpty()) {
+                            val userCashAccounts = userListAccount.first()
+                            val idUserCashAccount = userCashAccounts.id
+                            _loginUiState.update { state -> state.copy(idUserCashAccount = idUserCashAccount) }
+                        }
+                        hideLoader()
+                        _loginUiEvent.emit(LoginUiEvent.SuccessLogin)
+                    }
+
+                    is NetworkResult.Error -> {
+                        hideLoaderAndShowGenericErrorDialog()
+                    }
+                }
             }
     }
 
