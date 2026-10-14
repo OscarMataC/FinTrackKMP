@@ -13,7 +13,7 @@ import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
 import com.uagr.kmp.course.domain.usecase.user.InsertUserAndDeleteUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
-import com.uagr.kmp.course.domain.usecase.cashAccounts.UserCashAccountsUseCase
+import com.uagr.kmp.course.domain.usecase.accounts.UserCashAccountsUseCase
 import com.uagr.kmp.course.utils.constant.NetworkUrl
 import com.uagr.kmp.course.utils.network.NetworkResult
 import com.uagr.kmp.course.utils.operators.StatusLoading

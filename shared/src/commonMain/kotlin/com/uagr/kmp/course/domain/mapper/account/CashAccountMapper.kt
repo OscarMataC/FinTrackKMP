@@ -1,8 +1,8 @@
-package com.uagr.kmp.course.domain.mapper.cashAccount
+package com.uagr.kmp.course.domain.mapper.account
 
-import com.uagr.kmp.course.data.network.model.response.cashAccounts.CashAccountResponse
-import com.uagr.kmp.course.data.network.model.response.cashAccounts.CashAccountsResponse
-import com.uagr.kmp.course.domain.model.cashAccount.CashAccountModel
+import com.uagr.kmp.course.data.network.model.response.accounts.CashAccountResponse
+import com.uagr.kmp.course.data.network.model.response.accounts.CashAccountsResponse
+import com.uagr.kmp.course.domain.model.accounts.CashAccountModel
 
 fun CashAccountsResponse.toDomain(): List<CashAccountModel> =
     items?.map { it.toDomain() } ?: emptyList()

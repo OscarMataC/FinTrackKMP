@@ -1,4 +1,4 @@
-package com.uagr.kmp.course.data.network.model.response.cashAccounts
+package com.uagr.kmp.course.data.network.model.response.accounts
 
 import com.uagr.kmp.course.data.network.model.response.base.BaseResponse
 import com.uagr.kmp.course.data.network.model.response.base.PaginationResponse

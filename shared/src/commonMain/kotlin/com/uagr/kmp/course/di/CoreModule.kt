@@ -18,16 +18,20 @@ import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSource
 import com.uagr.kmp.course.data.network.datasource.login.LoginNetworkDataSourceImpl
 import com.uagr.kmp.course.data.network.datasource.register.RegisterNetworkDataSource
 import com.uagr.kmp.course.data.network.datasource.register.RegisterNetworkDataSourceImpl
-import com.uagr.kmp.course.data.network.datasource.cashAccounts.UserCashAccountsNetworkDataSource
-import com.uagr.kmp.course.data.network.datasource.cashAccounts.UserCashAccountsNetworkDataSourceImpl
+import com.uagr.kmp.course.data.network.datasource.accounts.UserCashAccountsNetworkDataSource
+import com.uagr.kmp.course.data.network.datasource.accounts.UserCashAccountsNetworkDataSourceImpl
+import com.uagr.kmp.course.data.network.datasource.summary.SummaryAccountNetworkDataSource
+import com.uagr.kmp.course.data.network.datasource.summary.SummaryAccountNetworkDataSourceImpl
 import com.uagr.kmp.course.domain.repository.login.LoginRepository
 import com.uagr.kmp.course.domain.repository.login.LoginRepositoryImpl
 import com.uagr.kmp.course.domain.repository.register.RegisterRepository
 import com.uagr.kmp.course.domain.repository.register.RegisterRepositoryImpl
 import com.uagr.kmp.course.domain.repository.user.UserLocalDataRepository
 import com.uagr.kmp.course.domain.repository.user.UserLocalDataRepositoryImpl
-import com.uagr.kmp.course.domain.repository.cashAccounts.UserCashAccountsRepository
-import com.uagr.kmp.course.domain.repository.cashAccounts.UserCashAccountsRepositoryImpl
+import com.uagr.kmp.course.domain.repository.accounts.UserCashAccountsRepository
+import com.uagr.kmp.course.domain.repository.accounts.UserCashAccountsRepositoryImpl
+import com.uagr.kmp.course.domain.repository.summary.SummaryAccountRepository
+import com.uagr.kmp.course.domain.repository.summary.SummaryAccountRepositoryImpl
 import com.uagr.kmp.course.domain.usecase.login.LoginUseCase
 import com.uagr.kmp.course.domain.usecase.login.ValidateLoginFormUseCase
 import com.uagr.kmp.course.domain.usecase.register.RegisterUseCase
@@ -35,7 +39,8 @@ import com.uagr.kmp.course.domain.usecase.register.ValidateRegisterFormUseCase
 import com.uagr.kmp.course.domain.usecase.user.GetUserUseCase
 import com.uagr.kmp.course.domain.usecase.user.InsertUserAndDeleteUseCase
 import com.uagr.kmp.course.domain.usecase.user.SaveUserTokenUseCase
-import com.uagr.kmp.course.domain.usecase.cashAccounts.UserCashAccountsUseCase
+import com.uagr.kmp.course.domain.usecase.accounts.UserCashAccountsUseCase
+import com.uagr.kmp.course.domain.usecase.summary.SummaryAccountUseCase
 import com.uagr.kmp.course.presentation.ui.home.viewmodel.HomeViewModel
 import com.uagr.kmp.course.presentation.ui.login.viewmodel.LoginViewModel
 import com.uagr.kmp.course.presentation.ui.register.viewmodel.RegisterViewModel
@@ -87,6 +92,10 @@ val dataSourceRemoteModule = module {
     single<UserCashAccountsNetworkDataSource> {
         UserCashAccountsNetworkDataSourceImpl(get())
     }
+
+    single<SummaryAccountNetworkDataSource> {
+        SummaryAccountNetworkDataSourceImpl(get())
+    }
 }
 
 val dataSourceLocalModule = module {
@@ -126,6 +135,13 @@ val repositoryModule = module {
             ioDispatcher = get()
         )
     }
+
+    single <SummaryAccountRepository> {
+        SummaryAccountRepositoryImpl(
+            summaryAccountNetworkDataSource = get(),
+            ioDispatcher = get()
+        )
+    }
 }
 
 val useCaseModule = module {
@@ -137,12 +153,13 @@ val useCaseModule = module {
     single { InsertUserAndDeleteUseCase(get()) }
     single { GetUserUseCase(get()) }
     single { UserCashAccountsUseCase(get()) }
+    single { SummaryAccountUseCase(get()) }
 }
 
 val viewmodelModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
-    single { HomeViewModel(get()) }
+    single { HomeViewModel(get(), get()) }
 }
 
 fun initKoin(config: KoinAppDeclaration? = null) {

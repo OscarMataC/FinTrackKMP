@@ -1,4 +1,4 @@
-package com.uagr.kmp.course.domain.model.cashAccount
+package com.uagr.kmp.course.domain.model.accounts
 
 data class CashAccountModel(
     val id: String,

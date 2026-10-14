@@ -83,7 +83,7 @@ fun DashboardContainer(idCashAccount: String) {
             modifier = Modifier.padding(padding)
         ) {
             composable<Home> {
-                HomeScreen()
+                HomeScreen(idCashAccount = idCashAccount)
             }
 
             composable<Movements> {

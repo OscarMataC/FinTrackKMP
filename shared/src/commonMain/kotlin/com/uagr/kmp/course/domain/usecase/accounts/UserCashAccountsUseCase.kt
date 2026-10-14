@@ -1,8 +1,8 @@
-package com.uagr.kmp.course.domain.usecase.cashAccounts
+package com.uagr.kmp.course.domain.usecase.accounts
 
-import com.uagr.kmp.course.data.network.model.request.cashAccounts.CashAccountsRequest
-import com.uagr.kmp.course.domain.model.cashAccount.CashAccountModel
-import com.uagr.kmp.course.domain.repository.cashAccounts.UserCashAccountsRepository
+import com.uagr.kmp.course.data.network.model.request.accounts.CashAccountsRequest
+import com.uagr.kmp.course.domain.model.accounts.CashAccountModel
+import com.uagr.kmp.course.domain.repository.accounts.UserCashAccountsRepository
 import com.uagr.kmp.course.utils.network.NetworkResult
 import kotlinx.coroutines.flow.Flow
 

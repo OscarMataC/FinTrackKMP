@@ -28,6 +28,7 @@ import com.uagr.kmp.course.presentation.theme.AppTheme
 import com.uagr.kmp.course.presentation.theme.Dimens
 import course.shared.generated.resources.Res
 import course.shared.generated.resources.expenses
+import course.shared.generated.resources.income
 import course.shared.generated.resources.last_movements
 import course.shared.generated.resources.this_month
 import course.shared.generated.resources.total_balance
@@ -36,7 +37,12 @@ import course.shared.generated.resources.your_financial_outlook
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun HomeContainer(userName: String) {
+fun HomeContainer(
+    userName: String = "",
+    net: String = "",
+    income: String = "",
+    expenses: String = ""
+) {
     val scrollState = rememberScrollState()
     val itemTestMovements= listOf<ItemTest>(
         ItemTest(
@@ -100,12 +106,30 @@ fun HomeContainer(userName: String) {
             TextBigBold(
                 modifier = Modifier.fillMaxWidth(),
                 color = AppTheme.colors.text.white,
-                text = "$24,000",
+                text = "$$net",
                 textAlign = TextAlign.Left,
                 fontSize = Dimens.textSizeBig34
             )
             Spacer(Modifier.height(Dimens.height21))
             Row(modifier = Modifier.fillMaxSize()) {
+                Column(modifier = Modifier.weight(1f)) {
+                    TextSmall(
+                        modifier = Modifier.fillMaxWidth(),
+                        fontSize =  Dimens.textSizeExtraSmall11,
+                        fontWeight = FontWeight.Medium,
+                        color = AppTheme.colors.text.blueC2,
+                        text = stringResource(Res.string.income),
+                        textAlign = TextAlign.Left,
+                    )
+                    Spacer(Modifier.height(Dimens.height7))
+                    TextSmall(
+                        modifier = Modifier.fillMaxWidth(),
+                        fontWeight = FontWeight.SemiBold,
+                        color = AppTheme.colors.text.white,
+                        text = "$$income",
+                        textAlign = TextAlign.Left,
+                    )
+                }
                 Column(modifier = Modifier.weight(1f)) {
                     TextSmall(
                         modifier = Modifier.fillMaxWidth(),
@@ -120,25 +144,7 @@ fun HomeContainer(userName: String) {
                         modifier = Modifier.fillMaxWidth(),
                         fontWeight = FontWeight.SemiBold,
                         color = AppTheme.colors.text.white,
-                        text = "+$18,500",
-                        textAlign = TextAlign.Left,
-                    )
-                }
-                Column(modifier = Modifier.weight(1f)) {
-                    TextSmall(
-                        modifier = Modifier.fillMaxWidth(),
-                        fontSize =  Dimens.textSizeExtraSmall11,
-                        fontWeight = FontWeight.Medium,
-                        color = AppTheme.colors.text.blueC2,
-                        text = stringResource(Res.string.total_balance),
-                        textAlign = TextAlign.Left,
-                    )
-                    Spacer(Modifier.height(Dimens.height7))
-                    TextSmall(
-                        modifier = Modifier.fillMaxWidth(),
-                        fontWeight = FontWeight.SemiBold,
-                        color = AppTheme.colors.text.white,
-                        text = "+$8,460",
+                        text = "$$expenses",
                         textAlign = TextAlign.Left,
                     )
                 }
@@ -267,6 +273,11 @@ fun HomeContainer(userName: String) {
 @Composable
 private fun HomeContainerPreview() {
     SafeScreenContainerTest {
-        HomeContainer("Usuario")
+        HomeContainer(
+            userName = "Usuario",
+            net = "5500.00",
+            income = "10000",
+            expenses = "4500"
+        )
     }
 }
